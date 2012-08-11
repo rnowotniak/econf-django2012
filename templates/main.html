@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+
+<body>
+
+<h1>System zarządzania konferencjami</h1>
+
+{% block contents %}
+
+Zarejestrowani użytkownicy:
+<ol>
+{% for u in users %}
+	<li>{{ u }}</li>
+{% endfor %}
+</ol>
+<a href="/register">Zarejestruj się</a>
+
+{% endblock %}
+
+<br> <br> <br> <br> <br>
+<a href="/admin/">logowanie</a>
+
+{{ request.user.username }}
+
+{% include "footer.html" %}
+
+</body>
+</html>
+

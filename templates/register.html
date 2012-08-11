@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block contents %}
+<form action="/register" method="post">
+{% csrf_token %}
+
+{{ form.non_field_errors }}
+
+<table>
+{{ formu }}
+{{ formp }}
+</table>
+
+<input type="submit" value="Zarejestruj"/>
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="/">System zarządzania konferencjami</a> | <a href="/admin/">panel</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrahead %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+{% endblock %}
