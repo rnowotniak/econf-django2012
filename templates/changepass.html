@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {{ msg }}
+
+<form action="" method="post">
+    {%  csrf_token %}
+    stare hasło:
+    <input type="password" name="oldpass" value="" /><br />
+
+    nowe hasło:
+    <input type="password" name="pass1" value="" /><br />
+
+    powtórz nowe hasło:
+    <input type="password" name="pass2" value="" /><br />
+
+
+    <input type="submit" value="Zmień" />
+</form>
+
+{%  endblock %}

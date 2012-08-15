@@ -13,9 +13,20 @@ urlpatterns = patterns('',
     # url(r'^econf/', include('econf.foo.urls')),
 
     (r'^$', 'confapp.views.main'),
-    (r'^register$', 'confapp.views.register'),
+    #(r'^register$', 'confapp.views.register'),
 
-    (r'^prev/$', ProfileFormPreview(ProfileForm)),
+    (r'^register$', ProfileFormPreview(ProfileForm)),
+
+    (r'^changepass$', 'django.contrib.auth.views.password_change'),
+    (r'^changepassdone$', 'django.contrib.auth.views.password_change_done'),
+
+    (r'^login$', 'django.contrib.auth.views.login'),
+    (r'^logout$', 'django.contrib.auth.views.logout', {'next_page':'/'}),
+#    (r'^login$', 'confapp.views.login'),
+#    (r'^logout$', 'confapp.views.logout'),
+
+    #(r'^changepass$', 'confapp.views.changepass'),
+    (r'^profile/update$', 'confapp.views.update_profile'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

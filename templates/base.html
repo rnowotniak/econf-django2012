@@ -7,7 +7,8 @@
 
 <body>
 
-<h1>System zarządzania konferencjami</h1>
+<h1><a href="/">System zarządzania konferencjami</a></h1>
+<hr/>
 
 {% block content %}
 
@@ -22,9 +23,21 @@ Zarejestrowani użytkownicy:
 {% endblock %}
 
 <br> <br> <br> <br> <br>
-<a href="/admin/">logowanie</a>
 
-{{ request }}
+<hr/>
+
+{%  if user.is_anonymous %}
+    Nie jesteś zalogowany.
+{%  else %}
+    Jesteś zalogowany jako: {{ user }}
+    <a href="/logout">wyloguj</a>
+{%  endif %}
+<br/>
+<br/>
+<a href="/login">logowanie</a><br/>
+<a href="/admin">admin</a>
+
+
 
 {% include "footer.html" %}
 

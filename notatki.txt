@@ -1,0 +1,8 @@
+Zrobić dalej należy:
+
+* Logowanie do naszego własnego panelu admina DONE
+* Nasz własny panel admina: linki do opcji: zmiana hasła, wylogowanie, aktualizacja danych, mail do organizatorów, zgloszenie referatu ...  DONE
+* Zmiana hasła DONE
+* Aktualizacja profilu DONE
+* login_required DONE
+* Wysyłanie maila
