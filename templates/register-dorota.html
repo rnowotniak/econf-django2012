@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+
+{% block contents %}
+
+{{  form.non_field_errors }}
+
+
+<div id="register_form">
+    <h1 style="font-size: 20px; font-weight: bold; text-align: center;">REJESTRACJA</h1>
+    
+    <form name="register" action="" method="POST">
+    {% csrf_token %}
+        <div class="register_block">
+            <fieldset>
+                <legend>Dane podstawowe</legend>
+                <span style="padding-left: 91px;">
+                    <label for="firstname">Imię:</label><input type="text" id="firstname" name="first_name" value="" />
+                    {{ form.first_name.errors }}
+                </span>
+                <span style="padding-left: 62px;">
+                    <label for="lastname">Nazwisko:</label><input type="text" id="lastname" name="lastname" value="" />
+                </span>
+                <span style="padding-left: 50px;">
+                    <label for="organization">Organizacja:</label><input type="text" id="organization" name="organization" value="" />
+                </span>
+                <span style="padding-left: 58px;">
+                    <label for="unit">Jednostka:</label><input type="text" id="unit" name="unit" value="" />
+                </span>
+                <span style="padding-left: 95px;">
+                    <label for="nip">NIP:</label><input type="text" id="nip" name="nip" value="" />
+                </span>
+                <span style="padding-left: 74px;">
+                    <label for="phone">Telefon:</label><input type="text" id="first_name" name="phone" value="" />               
+                </span>
+                <fieldset style="width:200px; margin-left: 33px;">
+                    <legend>Deklarowana opłata konferencyjna</legend>
+                    <span>
+                        <input type="radio" style="margin-right: 4px; margin-top: 2px;" id="declaration1" name="declaration" value="1" checked="checked" /><label for="declaration1">Studenci 200 zł</label> 
+                    </span>
+                    <span>
+                        <input type="radio" style="margin-right: 4px; margin-top: 2px;" id="declaration2" name="declaration" value="2" /><label for="declaration2">Doktoranci 250 zł</label> 
+                    </span>
+                    <span>
+                        <input type="radio" style="margin-right: 4px; margin-top: 2px;" id="declaration3" name="declaration" value="3" /><label for="declaration3">Uczestnictwo bierne 2000 zł</label> 
+                    </span>
+                </fieldset>                
+            </fieldset>    
+        </div>
+        <div class="register_block">
+            <fieldset>
+                <legend>Adres</legend>
+                <span style="padding-left: 83px;">
+                    <label for="address1">Adres:</label><input type="text" id="address1" name="address1" value="" />
+                </span>
+                <span style="padding-left: 79px;">
+                    <label for="city_id1">Miasto:</label><select id="city_id1" name="city_id1" style="height: 20px; outline: none; width: 134px;"><?php echo $option;?></select>
+                </span>
+                <span style="padding-left: 41px;">
+                    <label for="zip_code1">Kod pocztowy:</label><input type="text" id="zip_code1" name="zip_code1" value="" />
+                </span>                                            
+            </fieldset>    
+        </div>
+        <div class="register_block">
+            <fieldset>
+                <legend>Adres do korespondencji</legend>
+                <span style="padding-left: 12px; margin-bottom: 12px;">
+                    <input type="checkbox" onClick="check_adress_correspondence(this)" style="margin-right: 4px; margin-top: 2px;" id="same_address" name="same_address" value="" /><label for="same_address" style="color: black;">Adres taki sam jak powyżej.</label> 
+                </span>
+                <span style="padding-left: 83px;">
+                    <label for="address2" style="color: black;">Adres:</label><input type="text" id="address2" name="address2" value="" />
+                </span>
+                <span style="padding-left: 79px;">
+                    <label for="city_id2" style="color: black;">Miasto:</label><select id="city_id2" name="city_id2" style="height: 20px; outline: none; width: 134px;"><?php echo $option;?></select>
+                </span>
+                <span style="padding-left: 41px;">
+                    <label for="zip_code2" style="color: black;">Kod pocztowy:</label><input type="text" id="zip_code2" name="zip_code2" value="" />
+                </span>                                            
+            </fieldset>    
+        </div>
+        <div class="register_block">
+            <fieldset>
+                <legend>Dane konta</legend>
+                <span style="padding-left: 80px;">
+                    <label for="email">E-mail:</label><input type="text" id="email" name="email" value="" />
+                </span>
+                <span style="padding-left: 83px;">
+                    <label for="password">Hasło:</label><input type="password" id="password" name="password" value="" />
+                </span>                                
+            </fieldset>    
+        </div>
+        <div class="register_block">
+            <input type="submit" value="Rejestracja" class="button" />
+        </div>
+    </form>    
+</div>
+
+{% endblock %}
