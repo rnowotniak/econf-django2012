@@ -14,7 +14,7 @@ from django.template.response import TemplateResponse
 
 def main(req):
     users = Profile.objects.all()
-    return TemplateResponse(req, "main.html", {"users": users})
+    return TemplateResponse(req, "base.html", {"users": users})
     #return render_to_response('main.html', {'users': users})
 
 
@@ -100,3 +100,15 @@ def register(req):
             # XXX
             pass
     return TemplateResponse(req, "register.html", {"form": form})
+
+from django.contrib.formtools.preview import FormPreview
+
+class ProfileFormPreview(FormPreview):
+    # preview_template = ...
+    # form_template = ...
+
+    def done(self, req, cleaned_data):
+        form = ProfileForm(req.POST)
+        form.save()
+        # TODO send mail
+        return TemplateResponse(req, "thanks.html")
