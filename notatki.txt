@@ -5,4 +5,11 @@ Zrobić dalej należy:
 * Zmiana hasła DONE
 * Aktualizacja profilu DONE
 * login_required DONE
+
 * Wysyłanie maila
+
+Dalej:
+* Profile -> Account?
+* AccountType (doktorant, student, wolny sluchacz, recenzent, ...)
+* Papers (account_id, created, title, autorzy, abstrakt, pliki)
+* Files (paper_id, data, type (artykul, prezentacja)
