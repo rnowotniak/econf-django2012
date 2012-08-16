@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 
     (r'^register$', ProfileFormPreview(ProfileForm)),
     (r'^contact$', 'confapp.views.contact'),
+    (r'^papers/submit$', 'confapp.views.submit_paper'),
 
     (r'^changepass$', 'django.contrib.auth.views.password_change'),
     (r'^changepassdone$', 'django.contrib.auth.views.password_change_done'),
