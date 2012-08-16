@@ -78,6 +78,12 @@ def contact(req):
 class PaperCreate(CreateView):
     model = Paper
     template_name = 'paper.html'
+    def get_initial(self):
+        # Get the initial dictionary from the superclass method
+        initial = super(PaperCreate, self).get_initial()
+        initial = initial.copy()
+        initial['authors'] = '%s %s' % (self.request.user.first_name, self.request.user.last_name)
+        return initial
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super(PaperCreate, self).form_valid(form)
@@ -86,11 +92,13 @@ class PaperUpdate(UpdateView):
     model = Paper
     template_name = 'paper.html'
     success_url = '/'
+    # TODO check if current user owns this article!
 
 class PaperDelete(DeleteView):
     model = Paper
     success_url = '/'
     template_name = 'paper.html'
+    # TODO check if current user owns this article!
 
 #def register(req):
 #    form = ProfileForm()

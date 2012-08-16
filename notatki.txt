@@ -10,13 +10,48 @@ Zrobić dalej należy:
 * Wysyłanie maila DONE
 * Reset hasła (Pominąć)
 
-* Zgłaszanie referatów
+* Zgłaszanie referatów - prawie DONE, trzeba dopracować
+
+* Usuwanie i edycja tylko swoich artykułów
+
+* Pliki
 
 * Deploy
+
+* PaperCreate i inne tylko dla zalogowanych
 
 Refactoring:
 * Profile -> Account?
 * AccountType (doktorant, student, wolny sluchacz, recenzent, ...)
 * Papers (account_id, created, title, autorzy, abstrakt, pliki)
 * Files (paper_id, data, type (artykul, prezentacja)
+
+
+Account:
+    id
+    user_id (Django class providing authorization, logging, passwords)
+    accounttype_id
+    organization
+    institute
+    city
+    ...
+    address2 (textfield)
+
+AccountType:
+    id
+    name ("doktorant", "student", "udzial bierny", "ko", "recenzent", ...)
+    payment (PLN)
+
+Paper:
+    id
+    account_id
+    title
+    authors (textfield)
+    abstract (textfield)
+
+Attachment:
+    id
+    created (datetime)
+    file (in filesystem)
+    type (artykul / prezentacja)
 
