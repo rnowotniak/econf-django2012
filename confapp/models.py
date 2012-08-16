@@ -24,7 +24,7 @@ class Account(models.Model):
 
     nip = models.CharField(verbose_name='Numer NIP', max_length=30)
 
-    payment = models.ForeignKey('Payment', default=0, verbose_name='Uczestnictwo')
+    accounttype = models.ForeignKey('AccountType', default=0, verbose_name='Uczestnictwo')
 
     phone = models.CharField(verbose_name='Telefon', max_length=255)
 
@@ -34,7 +34,7 @@ class Account(models.Model):
         return '%s %s' % (self.user.first_name, self.user.last_name)
 
 
-class Payment(models.Model):
+class AccountType(models.Model):
     name = models.CharField(max_length=30)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
 

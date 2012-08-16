@@ -1,4 +1,4 @@
-from confapp.models import Conference, Account, Payment
+from confapp.models import Conference, Account, AccountType
 from django.contrib import admin
 
 class ConferenceAdmin(admin.ModelAdmin):
@@ -7,6 +7,6 @@ class ConferenceAdmin(admin.ModelAdmin):
 
 admin.site.register(Conference, ConferenceAdmin)
 admin.site.register(Account)
-admin.site.register(Payment)
+admin.site.register(AccountType)
 
 

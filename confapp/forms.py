@@ -19,7 +19,7 @@ class AccountForm(ModelForm):
         #fields = ('first_name', 'last_name')
         exclude = ('user', )
         widgets = {
-            'payment': widgets.RadioSelect()
+            'accounttype': widgets.RadioSelect()
         }
 
     first_name = forms.CharField(label=u'Imię', max_length=30)
@@ -46,7 +46,7 @@ class AccountForm(ModelForm):
             'postcode',
             'city',
             'nip',
-            'payment',
+            'accounttype',
             'phone',
             'address2'
         ]
@@ -122,8 +122,8 @@ class AccountFormPreview(FormPreview):
     form_template = 'registration/form.html'
 
     def process_preview(self, request, form, context):
-#        print dir(context['form'].fields['payment'].widget)
-        context['payment'] = form.instance.payment.name
+#        print dir(context['form'].fields['accounttype'].widget)
+        context['accounttype'] = form.instance.accounttype.name
 
     def done(self, req, cleaned_data):
         form = AccountForm(req.POST)

@@ -5,5 +5,5 @@ Dane:
 Imię: {{ user.first_name }}
 Nazwisko: {{ user.last_name }}
 NIP: {{ user.account.nip }}
-Udział: {{ user.account.payment.name }}
+Udział: {{ user.account.accounttype.name }}
 Hasło: {{ user.cleartext }}
