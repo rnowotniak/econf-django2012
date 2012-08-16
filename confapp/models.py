@@ -50,6 +50,9 @@ class Paper(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/papers/%d' % self.id
+
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)

@@ -21,11 +21,11 @@ Masz do wyboru:
 
 <h3>Moje referaty</h3>
 
-    <a href="/papers/submit">Dodaj referat</a>
+    <a href="/papers/">Dodaj referat</a>
 
     <ul>
     {% for paper in papers %}
-        <li><a href="/papers/{{ paper.id }}">{{ paper }}</a></li>
+        <li><a href="/papers/{{ paper.id }}">{{ paper }}</a> &nbsp;&nbsp;[<a href="/papers/delete/{{ paper.id }}">usuń</a>]</li>
     {% endfor %}
     </ul>
 

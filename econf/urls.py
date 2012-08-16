@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.formtools.preview import FormPreview
 from confapp.forms import ProfileFormPreview, ProfileForm
+from confapp.views import PaperUpdate, PaperCreate, PaperDelete
 
 admin.autodiscover()
 
@@ -17,7 +18,10 @@ urlpatterns = patterns('',
 
     (r'^register$', ProfileFormPreview(ProfileForm)),
     (r'^contact$', 'confapp.views.contact'),
-    (r'^papers/submit$', 'confapp.views.submit_paper'),
+
+    (r'^papers/delete/(?P<pk>\d+)$', PaperDelete.as_view()),
+    (r'^papers/(?P<pk>\d+)$', PaperUpdate.as_view()),
+    (r'^papers/$', PaperCreate.as_view()),
 
     (r'^changepass$', 'django.contrib.auth.views.password_change'),
     (r'^changepassdone$', 'django.contrib.auth.views.password_change_done'),

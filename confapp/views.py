@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import mail_managers, send_mail
 from django.core.mail.message import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 import smtplib
 from confapp import forms
 from confapp.forms import ProfileForm
@@ -61,18 +62,35 @@ def contact(req):
         form = forms.ContactForm()
     return TemplateResponse(req, "contact.html", {'form':form})
 
-@login_required
-def submit_paper(req):
-    if req.method == 'POST':
-        form = forms.PaperForm(req.POST)
-        if form.is_valid():
-            paper = form.save(commit = False)
-            paper.profile = req.user.profile
-            paper.save()
-            return HttpResponseRedirect('/')
-    else:
-        form = forms.PaperForm()
-    return TemplateResponse(req, "paper.html", {'form': form})
+#@login_required
+#def paper(req, id = None):
+#    if req.method == 'POST':
+#        form = forms.PaperForm(req.POST)
+#        if form.is_valid():
+#            paper = form.save(commit = False)
+#            paper.profile = req.user.profile
+#            paper.save()
+#            return HttpResponseRedirect('/')
+#    else:
+#        form = forms.PaperForm()
+#    return TemplateResponse(req, "paper.html", {'form': form})
+
+class PaperCreate(CreateView):
+    model = Paper
+    template_name = 'paper.html'
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super(PaperCreate, self).form_valid(form)
+
+class PaperUpdate(UpdateView):
+    model = Paper
+    template_name = 'paper.html'
+    success_url = '/'
+
+class PaperDelete(DeleteView):
+    model = Paper
+    success_url = '/'
+    template_name = 'paper.html'
 
 #def register(req):
 #    form = ProfileForm()
