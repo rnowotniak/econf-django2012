@@ -1,67 +1,155 @@
-*{margin: 0px; padding: 0px; font: normal normal 12px Arial;}
+*{margin: 0px; /*padding: 0px;*/ font: normal normal 12px Arial; }
 
-/*index.php*/
-.page{width: 950px; height: auto; overflow: hidden; margin: 0px auto 0px auto;}
+body{background: url('../image/body_bg.png');}
 
-.header{width: 950px; height: 106px; float: left; background: #728FCE url('../image/PL_LOGO.png') no-repeat;}
+.page{width: 950px; height: auto; overflow: hidden; margin: 0px auto 0px auto;  }
 
-.body{width: 948px; height: auto; float: left; border-left: 1px solid whitesmoke; border-right: 1px solid whitesmoke;}
+.header{}
 
-.footer{width: 950px; height: 30px; float: left; background-color: #98AFC7;}
+.footer{}
 
-/*message.php*/
-#error{background-color: #FD8282; color: #AD0000; float: left; padding-bottom: 12px; padding-top: 12px; 
-      text-align: center; width: 100%;}
+.inputs {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CBCCCD;
+    border-radius: 3px 3px 3px 3px;
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    height: auto !important;
+    padding: 5px !important;
+    position: relative;
+    z-index: 1;
+	height:18px;
+	padding-bottom: 0;
+    padding-top: 2px;
+	width:238px;
+}
 
-#error .error_box{margin-top: 10px;}
+.labels {
+	float: left;
+    line-height: 25px;
+    text-align: right;
+    top: -3px;
+    width: 220px;
+	color: #777777;
+    font-size: 12px;
+}
 
-#error .error_box span{font-size: 14px; font-weight: bold; line-height:20px;}
+.button{
+	background-color: #a6a6a6;
+    border: 0 none;
+    color: #ffffff;
+    font-family: "Segoe UI Web Semibold","Segoe UI Web Regular","Segoe UI","Helvetica Neue",Arial;
+	border-radius: 3px 3px 3px 3px;
+    font-size: 100%;
+    height: 2em;
+    min-width: 6em;
+    padding: 3px 12px 5px;
+}
 
-#info{background-color: #6AFB92; color: #347C17; float: left; padding-bottom: 12px; padding-top: 12px; 
-      text-align: center; width: 100%;}
+.height_10  { padding: 10px 0 0 0; }
 
-#info .info_box{margin-top: 10px;}
+.with_padding_top {padding-top:20px;}
+.with_error {height:45px;}
 
-#info .info_box span{font-size: 14px; font-weight: bold; line-height:20px;}
+input.error  { border:1px solid red;}
 
-/*header.php*/
-#login_bar{float: right; display: block; margin-right: 4px; padding: 4px 8px 4px 8px; 
-           background-color: #646D7E; color: whitesmoke;}
+label.error { color: red; display:block; font-size:10px; text-align:center;}
 
-#login_bar .login{float: left;}
+/*header */
 
-#login_bar .login input{margin-left: 4px; padding: 2px; border: 1px solid #D4D0C8; outline: none; height: 14px;}
 
-#login_bar .login .button{padding: 0px 4px 2px 4px; border: 1px solid black; background-color: #D4D0C8; height: 20px;}
-
-#login_bar .register{float: left; border-left: 1px solid whitesmoke; margin-left: 4px; padding-left: 4px; height: 20px;}
-
-#login_bar .register a{background-color: #D4D0C8; color: black; display: block; float: left; height: 14px; outline: none;
-                       padding: 2px 4px 2px 4px; text-decoration: none; border: 1px solid black;}
-
-#login_bar .user{}
-
-#login_bar .user p{float: left; font-size: 16px; font-weight: bold; margin-right: 4px;}
-
-#login_bar .user a{float: left; text-decoration: none; display: block; background-color: #D4D0C8; color: black; 
-                   padding: 2px 4px 2px 4px; outline: none; border: 1px solid black; margin-left: 4px;}
 
 /*main.php*/
-#main{width: 100%; float: left; text-align: center; padding-bottom: 12px; padding-top: 12px;}
+.main{width: 950px; float: left; text-align: center; padding-bottom: 12px; padding-top: 12px;}
 
-#main p{width: 100%; font-size: 22px; font-weight: bold; float: left;}
+.main p{width: 950px; font-size: 22px; font-weight: bold; float: left;}
 
-/*register.php*/
-#register_form{width: 100%; float: left; padding-bottom: 12px; padding-top: 12px;}
+/*login*/
 
-#register_form .register_block{float: left; margin-left: 300px; width: 350px;}
+.login_bar {
+	margin: auto;
+    width: 320px;	
+	margin-top:100px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+}
 
-#register_form .register_block fieldset{float: left; padding: 10px; margin-top: 10px}
 
-#register_form .register_block fieldset span{float: left; margin-bottom: 4px;}
 
-#register_form .register_block fieldset input, select{float: left; padding: 2px; border: 1px solid #D4D0C8; outline: none; height: 14px;}
+h1 {
+    background: url("../image/logo.png") no-repeat scroll center top transparent; 
+    height: 130px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 159px;
+	margin:0 auto;
+	text-align:center;
+	margin-top:25px;	
+}
 
-#register_form .register_block fieldset label{float: left; margin-right: 4px; color: red;}
+.login_bar .login{
+	
+    font-weight: normal;
+    margin-left: 8px;
+    padding: 26px 24px 46px;
+}
 
-#register_form .register_block .button{padding: 0px 4px 2px 4px; margin: 10px 0px 0px 136px; border: 1px solid black; background-color: #D4D0C8; height: 20px;}
+.login_bar .login .labels{ width: 50px; padding-right:15px;}
+
+
+.login_bar .login .inputs{ width: 170px;}
+
+.login_bar .login  .button {float:right; margin-right:20px;}
+
+.login_bar .register {
+	text-align:center;
+	padding-bottom:20px;
+}
+
+.login_bar .register a{
+	color:#777777;
+	font-weight:bold;
+}
+
+.login_bar .user{}
+
+/*register*/
+.register_form{
+	margin: auto;
+    width: 620px;	
+	margin-top:20px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+	position: relative;
+	padding-bottom:30px;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+	
+}
+
+#form_register {
+	margin-top:20px;
+}
+
+.register_form .labels{padding-right:15px;}
+
+.register_form .button{
+	position: absolute;
+	bottom:10px;
+	right:135px;
+}
+
+.radio {
+    height: auto !important;
+    padding: 5px !important;
+    position: relative;
+    z-index: 1;
+	height:18px;
+	padding-bottom: 0;
+    padding-top: 2px;
+	width:238px;
+	margin-left:230px;
+}
+
+.label_radio{ margin-left:5px; color:#777777}

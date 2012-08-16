@@ -5,8 +5,11 @@ Zrobić dalej należy:
 * Zmiana hasła DONE
 * Aktualizacja profilu DONE
 * login_required DONE
+* Szablon od Doroty DONE
 
 * Wysyłanie maila
+* Hasło wpisywane przez użytkownika podczas rejestracji
+* Reset hasła
 
 Dalej:
 * Profile -> Account?
