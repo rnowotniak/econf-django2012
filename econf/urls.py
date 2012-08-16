@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.formtools.preview import FormPreview
-from confapp.forms import ProfileFormPreview, ProfileForm
+from confapp.forms import AccountFormPreview, AccountForm
 from confapp.views import PaperUpdate, PaperCreate, PaperDelete
 
 admin.autodiscover()
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     (r'^$', 'confapp.views.main'),
     #(r'^register$', 'confapp.views.register'),
 
-    (r'^register$', ProfileFormPreview(ProfileForm)),
+    (r'^register$', AccountFormPreview(AccountForm)),
     (r'^contact$', 'confapp.views.contact'),
 
     (r'^papers/delete/(?P<pk>\d+)$', PaperDelete.as_view()),
@@ -31,7 +31,7 @@ urlpatterns = patterns('',
 #    (r'^logout$', 'confapp.views.logout'),
 
     #(r'^changepass$', 'confapp.views.changepass'),
-    (r'^profile/update$', 'confapp.views.update_profile'),
+    (r'^accounts/profile/$', 'confapp.views.update_account'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -1,4 +1,4 @@
-from confapp.models import Conference, Profile, Payment
+from confapp.models import Conference, Account, Payment
 from django.contrib import admin
 
 class ConferenceAdmin(admin.ModelAdmin):
@@ -6,7 +6,7 @@ class ConferenceAdmin(admin.ModelAdmin):
 	search_fields = ['name']
 
 admin.site.register(Conference, ConferenceAdmin)
-admin.site.register(Profile)
+admin.site.register(Account)
 admin.site.register(Payment)
 
 

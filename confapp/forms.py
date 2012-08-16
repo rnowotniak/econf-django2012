@@ -10,12 +10,12 @@ from django.forms.models import ModelForm
 from django.template import Context
 from django.template.response import TemplateResponse
 import smtplib
-from confapp.models import Profile, Paper
+from confapp.models import Account, Paper
 from django.conf import settings
 
-class ProfileForm(ModelForm):
+class AccountForm(ModelForm):
     class Meta:
-        model = Profile
+        model = Account
         #fields = ('first_name', 'last_name')
         exclude = ('user', )
         widgets = {
@@ -32,7 +32,7 @@ class ProfileForm(ModelForm):
     error_css_class = "error"
 
     def __init__(self, *args, **kw):
-        super(ProfileForm, self).__init__(*args, **kw)
+        super(AccountForm, self).__init__(*args, **kw)
         self.requser = None
         self.fields.keyOrder = [
             'first_name',
@@ -57,7 +57,7 @@ class ProfileForm(ModelForm):
         return self.cleaned_data['password']
 
     def clean(self):
-        cleaned_data = super(ProfileForm, self).clean()
+        cleaned_data = super(AccountForm, self).clean()
 #        print cleaned_data
         if 'password' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password'] != self.cleaned_data['password2']:
@@ -76,7 +76,7 @@ class ProfileForm(ModelForm):
 
 
     #	def clean(self):
-    #		cleaned_data = super(ProfileForm, self).clean()
+    #		cleaned_data = super(AccountForm, self).clean()
     #		try:
     #			User.objects.get(email = cleaned_data['email'])
     #			self._errors['email'] = self.error_class(['Jest taki user'])
@@ -86,16 +86,16 @@ class ProfileForm(ModelForm):
 
 
     def save(self, commit = True):
-        profile = super(ProfileForm, self).save(commit=False)
+        account = super(AccountForm, self).save(commit=False)
         if self.requser: # TODO zrobic to lepiej, czytelniej
-            # profile update
-            profile.user.first_name=self.cleaned_data['first_name']
-            profile.user.last_name=self.cleaned_data['last_name']
-            profile.user.username=self.cleaned_data['email']
-            profile.user.email=self.cleaned_data['email']
-            profile.user.save()
-            profile.save()
-            return profile
+            # account update
+            account.user.first_name=self.cleaned_data['first_name']
+            account.user.last_name=self.cleaned_data['last_name']
+            account.user.username=self.cleaned_data['email']
+            account.user.email=self.cleaned_data['email']
+            account.user.save()
+            account.save()
+            return account
         user = User(
             first_name=self.cleaned_data['first_name'],
             last_name=self.cleaned_data['last_name'],
@@ -105,19 +105,19 @@ class ProfileForm(ModelForm):
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
-            # Caution! Profile objects is created automatically, due to User signal!
-            profile.id = user.profile.id
-            profile.user = user
-            profile.save()
-#            print profile
+            # Caution! Account objects is created automatically, due to User signal!
+            account.id = user.account.id
+            account.user = user
+            account.save()
+#            print account
         else:
-            profile.user = user
-            user.profile = profile
+            account.user = user
+            user.account = account
         user.cleartext = self.cleaned_data['password'] # required to send the mail with confirmation
-        return profile
+        return account
 
 
-class ProfileFormPreview(FormPreview):
+class AccountFormPreview(FormPreview):
 #    preview_template = 'formtools/preview.html'
     form_template = 'registration/form.html'
 
@@ -126,12 +126,12 @@ class ProfileFormPreview(FormPreview):
         context['payment'] = form.instance.payment.name
 
     def done(self, req, cleaned_data):
-        form = ProfileForm(req.POST)
+        form = AccountForm(req.POST)
 
-        profile = form.save(commit = True)
+        account = form.save(commit = True)
         try:
             t = django.template.loader.get_template('registration/mail.txt')
-            c = Context({'user': profile.user})
+            c = Context({'user': account.user})
             body = t.render(c)
 #            print body
             send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',

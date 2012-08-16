@@ -13,7 +13,7 @@ class Conference(models.Model):
         return self.name
 
 
-class Profile(models.Model):
+class Account(models.Model):
     user = models.OneToOneField(User)
 
     organization = models.CharField(verbose_name='Organizacja', max_length=255)
@@ -42,7 +42,7 @@ class Payment(models.Model):
         return '%s (%.2f)' % (self.name, self.amount)
 
 class Paper(models.Model):
-    profile = models.ForeignKey(Profile, editable = False)
+    account = models.ForeignKey(Account, editable = False)
     title = models.CharField(max_length = 256, verbose_name=u'Tytuł')
     authors = models.CharField(max_length = 256, verbose_name='Autorzy')
     abstract = models.TextField(verbose_name="Abstrakt", blank = True)
@@ -53,9 +53,9 @@ class Paper(models.Model):
     def get_absolute_url(self):
         return '/papers/%d' % self.id
 
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_account(sender, instance, created, **kwargs):
 	if created:
-		Profile.objects.create(user=instance)
+		Account.objects.create(user=instance)
 
-post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_user_account, sender=User)
 
