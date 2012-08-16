@@ -10,10 +10,13 @@ Zrobić dalej należy:
 * Wysyłanie maila DONE
 * Reset hasła (Pominąć)
 
+* Zgłaszanie referatów
 
+* Deploy
 
-Dalej:
+Refactoring:
 * Profile -> Account?
 * AccountType (doktorant, student, wolny sluchacz, recenzent, ...)
 * Papers (account_id, created, title, autorzy, abstrakt, pliki)
 * Files (paper_id, data, type (artykul, prezentacja)
+

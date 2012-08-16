@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -38,6 +40,15 @@ class Payment(models.Model):
 
     def __unicode__(self):
         return '%s (%.2f)' % (self.name, self.amount)
+
+class Paper(models.Model):
+    profile = models.ForeignKey(Profile, editable = False)
+    title = models.CharField(max_length = 256, verbose_name=u'Tytuł')
+    authors = models.CharField(max_length = 256, verbose_name='Autorzy')
+    abstract = models.TextField(verbose_name="Abstrakt", blank = True)
+
+    def __unicode__(self):
+        return self.title
 
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:

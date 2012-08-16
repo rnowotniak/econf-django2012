@@ -17,15 +17,16 @@ Masz do wyboru:
         <li><a href=""></a></li>
         <li><a href=""></a></li>
         <li><a href=""></a></li>
-        <li><a href=""></a></li>
     </ol>
 
 <h3>Moje referaty</h3>
 
-    <a href="">Dodaj referat</a>
+    <a href="/papers/submit">Dodaj referat</a>
 
     <ul>
-        <li> </li>
+    {% for paper in papers %}
+        <li><a href="/papers/{{ paper.id }}">{{ paper }}</a></li>
+    {% endfor %}
     </ul>
 
 {% endblock %}

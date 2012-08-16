@@ -9,12 +9,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 import smtplib
 from confapp import forms
 from confapp.forms import ProfileForm
+from confapp.models import Paper
 from models import Profile
 from django.template.response import TemplateResponse
 
 def main(req):
     if req.user.is_authenticated():
-        return TemplateResponse(req, "panel.html")
+        papers = Paper.objects.filter(profile__id = req.user.profile.id)
+        print papers
+        return TemplateResponse(req, "panel.html", {'papers':papers})
     users = Profile.objects.all()
     return TemplateResponse(req, "base.html", {"users": users})
 
@@ -58,6 +61,18 @@ def contact(req):
         form = forms.ContactForm()
     return TemplateResponse(req, "contact.html", {'form':form})
 
+@login_required
+def submit_paper(req):
+    if req.method == 'POST':
+        form = forms.PaperForm(req.POST)
+        if form.is_valid():
+            paper = form.save(commit = False)
+            paper.profile = req.user.profile
+            paper.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = forms.PaperForm()
+    return TemplateResponse(req, "paper.html", {'form': form})
 
 #def register(req):
 #    form = ProfileForm()

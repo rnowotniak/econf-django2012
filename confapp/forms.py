@@ -10,7 +10,7 @@ from django.forms.models import ModelForm
 from django.template import Context
 from django.template.response import TemplateResponse
 import smtplib
-from confapp.models import Profile
+from confapp.models import Profile, Paper
 from django.conf import settings
 
 class ProfileForm(ModelForm):
@@ -145,3 +145,12 @@ class ProfileFormPreview(FormPreview):
 class ContactForm(forms.Form):
     message = forms.CharField(widget = widgets.Textarea(), label='Treść wiadomości')
     sendcopy = forms.BooleanField(initial = True, required = False)
+
+class PaperForm(ModelForm):
+    class Meta:
+        model = Paper
+#        exclude = ('user', )
+#        fields = ('first_name', 'last_name')
+
+    required_css_class = "required"
+    error_css_class = "error"
