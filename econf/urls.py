@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.formtools.preview import FormPreview
-from confapp.views import ProfileFormPreview, ProfileForm
+from confapp.forms import ProfileFormPreview, ProfileForm
 
 admin.autodiscover()
 
