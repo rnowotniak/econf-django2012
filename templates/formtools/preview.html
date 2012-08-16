@@ -1,28 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-xxx
-<h2>Preview your submission</h2>
+
+<h2>Sprawdź poprawność poniższych danych</h2>
 
 <table>
 {% for field in form %}
-<tr>
-<th>{{ field.label }}:</th>
-<td>{{ field.data }}</td>
-</tr>
+    {% if field.name == 'payment' %}
+        <tr>
+            <th>{{ field.label }}:</th>
+            <td>{{ payment }}</td>
+        </tr>
+    {% elif field.name != 'password' and field.name != 'password2' %}
+        <tr>
+        <th>{{ field.label }}:</th>
+        <td>{{ field.data }}</td>
+        </tr>
+    {%  endif %}
 {% endfor %}
 </table>
 
-<p>Security hash: {{ hash_value }}</p>
+{#<p>Security hash: {{ hash_value }}</p>#}
 
 <form action="" method="post">{% csrf_token %}
 {% for field in form %}{{ field.as_hidden }}
 {% endfor %}
 <input type="hidden" name="{{ stage_field }}" value="2" />
 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-<p><input type="submit" value="Submit" /></p>
+<p><input type="submit" value="Zarejestruj" /></p>
 </form>
 
+{% comment %}
 <h2>Or edit it again</h2>
 
 <form action="" method="post">{% csrf_token %}
@@ -32,5 +40,6 @@ xxx
 <input type="hidden" name="{{ stage_field }}" value="1" />
 <p><input type="submit" value="Preview" /></p>
 </form>
+{% endcomment %}
 
 {% endblock %}
