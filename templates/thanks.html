@@ -1,4 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
 
 Dziękujemy za rejestrację.
 
-Dostaniesz maila z potwierdzeniem.
+{% if not mailerror %}
+    Dostaniesz maila z potwierdzeniem.
+{% else %}
+    Błąd podczas wysyłania maila z potwierdzeniem. Skontaktuj się z nami pod adresem info@fimb.p.lodz.pl.
+{% endif %}
+
+{% endblock %}

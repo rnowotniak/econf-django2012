@@ -6,8 +6,8 @@ Zrobić dalej należy:
 * Aktualizacja profilu DONE
 * login_required DONE
 * Szablon od Doroty DONE
+* Hasło wpisywane przez użytkownika podczas rejestracji DONE
 
-* Hasło wpisywane przez użytkownika podczas rejestracji
 * Wysyłanie maila
 * Reset hasła
 

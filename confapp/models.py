@@ -39,8 +39,6 @@ class Payment(models.Model):
     def __unicode__(self):
         return '%s (%.2f)' % (self.name, self.amount)
 
-#User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
-
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)

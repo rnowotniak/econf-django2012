@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
-
+import django
 
 from django.contrib.auth.models import User
 from django.contrib.formtools.preview import FormPreview
 from django import forms
+from django.core.mail import send_mail
 from django.forms import widgets
 from django.forms.models import ModelForm
+from django.template import Context
 from django.template.response import TemplateResponse
+import smtplib
 from confapp.models import Profile
+from django.conf import settings
 
 class ProfileForm(ModelForm):
     class Meta:
@@ -64,8 +68,8 @@ class ProfileForm(ModelForm):
         data = self.cleaned_data['email']
         try:
             User.objects.get(email=data)
-            if not data == self.requser.email:
-                raise forms.ValidationError('jest user')
+            if not self.requser or not data == self.requser.email:
+                raise forms.ValidationError('W systemie jest już zarejestrowany taki adres e-mail')
         except User.DoesNotExist:
             pass
         return data
@@ -83,7 +87,7 @@ class ProfileForm(ModelForm):
 
     def save(self, commit = True):
         profile = super(ProfileForm, self).save(commit=False)
-        if self.requser:
+        if self.requser: # TODO zrobic to lepiej, czytelniej
             # profile update
             profile.user.first_name=self.cleaned_data['first_name']
             profile.user.last_name=self.cleaned_data['last_name']
@@ -97,14 +101,19 @@ class ProfileForm(ModelForm):
             last_name=self.cleaned_data['last_name'],
             username=self.cleaned_data['email'],
             email=self.cleaned_data['email'])
-        print "Ustawiam haslo: %s" % self.cleaned_data['password']
+#        print "Ustawiam haslo: %s" % self.cleaned_data['password']
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
+            # Caution! Profile objects is created automatically, due to User signal!
             profile.id = user.profile.id
             profile.user = user
             profile.save()
-            print profile
+#            print profile
+        else:
+            profile.user = user
+            user.profile = profile
+        user.cleartext = self.cleaned_data['password'] # required to send the mail with confirmation
         return profile
 
 
@@ -118,9 +127,18 @@ class ProfileFormPreview(FormPreview):
 
     def done(self, req, cleaned_data):
         form = ProfileForm(req.POST)
-#        print form.fields
-        form.save()
-        # TODO send mail
-        return TemplateResponse(req, "thanks.html")
+
+        profile = form.save(commit = True)
+        try:
+            t = django.template.loader.get_template('registration/mail.txt')
+            c = Context({'user': profile.user})
+            body = t.render(c)
+#            print body
+            send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',
+                body, settings.EMAIL_HOST_USER, [cleaned_data['email']])
+            return TemplateResponse(req, "thanks.html")
+        except smtplib.SMTPException, e:
+            print e
+            return TemplateResponse(req, "thanks.html", {'mailerror':True})
 
 
