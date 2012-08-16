@@ -142,3 +142,6 @@ class ProfileFormPreview(FormPreview):
             return TemplateResponse(req, "thanks.html", {'mailerror':True})
 
 
+class ContactForm(forms.Form):
+    message = forms.CharField(widget = widgets.Textarea(), label='Treść wiadomości')
+    sendcopy = forms.BooleanField(initial = True, required = False)

@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 
 # Create your views here.
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.core.mail import mail_managers, send_mail
+from django.core.mail.message import EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
+import smtplib
+from confapp import forms
 from confapp.forms import ProfileForm
 from models import Profile
 from django.template.response import TemplateResponse
@@ -30,6 +35,28 @@ def update_profile(req):
             # XXX
             pass
     return TemplateResponse(req, "register.html", {"form": form})
+
+@login_required
+def contact(req):
+    if req.method == 'POST':
+        form = forms.ContactForm(req.POST)
+        if form.is_valid():
+            try:
+                if form.cleaned_data['sendcopy']:
+                    send_mail(u'Kopia wiadomości do organizatorów Forum Innowacji Młodych Badaczy',\
+                        form.cleaned_data['message'], settings.SERVER_EMAIL, [req.user.email])
+                managers = [m[1] for m in settings.MANAGERS]
+                email = EmailMessage(u'[FIMB] Wiadomość od %s %s' % (str(req.user.profile), req.user.email),\
+                    form.cleaned_data['message'], settings.SERVER_EMAIL, managers,\
+                    headers = {'Reply-To': req.user.email})
+                email.send()
+            except smtplib.SMTPException, e:
+                print e
+                return HttpResponse("Błąd podczas wysyłania wiadomości")
+            return HttpResponseRedirect('/')
+    else:
+        form = forms.ContactForm()
+    return TemplateResponse(req, "contact.html", {'form':form})
 
 
 #def register(req):

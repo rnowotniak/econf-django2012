@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Wiadomość do organizatorów</h2>
+
+    <form action="" method="post">{% csrf_token %}
+
+        {{ form.message.label }}:<br/>
+        {{ form.message }}
+        {{ form.message.errors }}
+
+        <br/>
+        <br/>
+
+        {{ form.sendcopy }}<label for="id_sendcopy">Wyślij kopię wiadomości na adres {{ user.email }}</label>
+
+        <br/>
+        <br/>
+
+        <br/><br/>
+        <input type="submit" value="Wyślij" />
+    </form>
+
+{% endblock %}

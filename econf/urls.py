@@ -16,10 +16,10 @@ urlpatterns = patterns('',
     #(r'^register$', 'confapp.views.register'),
 
     (r'^register$', ProfileFormPreview(ProfileForm)),
+    (r'^contact$', 'confapp.views.contact'),
 
     (r'^changepass$', 'django.contrib.auth.views.password_change'),
     (r'^changepassdone$', 'django.contrib.auth.views.password_change_done'),
-
     (r'^login$', 'django.contrib.auth.views.login'),
     (r'^logout$', 'django.contrib.auth.views.logout', {'next_page':'/'}),
 #    (r'^login$', 'confapp.views.login'),
