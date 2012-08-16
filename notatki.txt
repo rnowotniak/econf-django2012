@@ -7,9 +7,10 @@ Zrobić dalej należy:
 * login_required DONE
 * Szablon od Doroty DONE
 * Hasło wpisywane przez użytkownika podczas rejestracji DONE
+* Wysyłanie maila DONE
+* Reset hasła (Pominąć)
 
-* Wysyłanie maila
-* Reset hasła
+
 
 Dalej:
 * Profile -> Account?

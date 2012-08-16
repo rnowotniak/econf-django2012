@@ -2,14 +2,16 @@
 
 {% block content %}
 
-   {{ state }}
+   {% if form.errors %}
+       Nieprawidłowy login/hasło.
+   {% endif %}
 
 <form action="" method="post">
     {%  csrf_token %}
     username:
-    <input type="text" name="username" value="{{ username}}" /><br />
+    {{ form.username }}<br />
     password:
-    <input type="password" name="password" value="" /><br />
+    {{ form.password }}<br />
 
     <input type="submit" value="Log In" />
 </form>
