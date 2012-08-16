@@ -92,8 +92,8 @@ class ProfileForm(ModelForm):
 
 
 class ProfileFormPreview(FormPreview):
-    # preview_template = ...
-    # form_template = ...
+#    preview_template = 'formtools/preview.html'
+    form_template = 'registration/form.html'
 
     def done(self, req, cleaned_data):
         form = ProfileForm(req.POST)
