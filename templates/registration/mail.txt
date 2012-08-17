@@ -1,9 +1,9 @@
 Potwierdzamy rejestrację na konferencję FIMB.
 
-Dane:
+Hasło do konta: {{ user.cleartext }}
 
+Dane:
 Imię: {{ user.first_name }}
 Nazwisko: {{ user.last_name }}
 NIP: {{ user.account.nip }}
-Udział: {{ user.account.accounttype.name }}
-Hasło: {{ user.cleartext }}
+Udział: {{ user.account.accounttype.name }} {{ user.account.accounttype.amount }}

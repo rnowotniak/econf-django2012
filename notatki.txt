@@ -15,8 +15,9 @@ Zrobić dalej należy:
 * Obsługa tranzakcji DONE
 * PaperCreate i inne tylko dla zalogowanych DONE
 
-* Bezpieczne serwowanie plików
 * Usuwanie i edycja tylko swoich artykułów
+
+* Bezpieczne serwowanie plików
 * Deploy
 
 ----

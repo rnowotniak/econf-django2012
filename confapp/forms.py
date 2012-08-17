@@ -131,11 +131,13 @@ class AccountFormPreview(FormPreview):
         account = form.save(commit = True)
         try:
             t = django.template.loader.get_template('registration/mail.txt')
-            c = Context({'user': account.user})
+            user = account.user
+            user.account = account
+            c = Context({'user': user})
             body = t.render(c)
 #            print body
             send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',
-                body, settings.EMAIL_HOST_USER, [cleaned_data['email']])
+                body, 'Komitet Organizacyjny <%s>' % settings.EMAIL_HOST_USER, [cleaned_data['email']])
             return TemplateResponse(req, "thanks.html")
         except smtplib.SMTPException, e:
             print e
