@@ -10,15 +10,14 @@ Zrobić dalej należy:
 * Wysyłanie maila DONE
 * Reset hasła (Pominąć)
 * Refactoring (prawidlowe nazwy klas) DONE
+* Zgłaszanie referatów - prawie DONE
+* Pliki DONE
+* Obsługa tranzakcji DONE
+* PaperCreate i inne tylko dla zalogowanych DONE
 
-* Zgłaszanie referatów - prawie DONE, trzeba dopracować
-
-* Obsługa tranzakcji
-
-* Pliki
+* Bezpieczne serwowanie plików
 * Usuwanie i edycja tylko swoich artykułów
 * Deploy
-* PaperCreate i inne tylko dla zalogowanych
 
 ----
 

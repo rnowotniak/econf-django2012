@@ -5,7 +5,9 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import mail_managers, send_mail
 from django.core.mail.message import EmailMessage
+from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.decorators import method_decorator
 from django.views.generic.edit import UpdateView, CreateView, DeleteView, DeletionMixin
 import smtplib
 from confapp import forms
@@ -23,6 +25,7 @@ def main(req):
     return TemplateResponse(req, "base.html", {"users": users})
 
 @login_required
+@transaction.commit_on_success
 def update_account(req):
     form = AccountForm(instance = req.user.account, initial={
         'first_name':req.user.first_name,
@@ -63,6 +66,7 @@ def contact(req):
     return TemplateResponse(req, "contact.html", {'form':form})
 
 @login_required
+@transaction.commit_on_success
 def paper(req, pk = None):
     attachments = None
     if req.method == 'POST':
@@ -89,6 +93,21 @@ def paper(req, pk = None):
         form = forms.PaperForm(initial={'authors':req.user.account})
     return TemplateResponse(req, "papers/paper.html", {'form': form, 'attachments': attachments})
 
+class PaperDelete(DeleteView):
+    # TODO check if current user owns this article!
+    model = Paper
+    success_url = '/'
+    template_name = 'papers/delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaperDelete, self).get_context_data(**kwargs)
+        context['paper'] = self.object
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PaperDelete, self).dispatch(*args, **kwargs)
+
 #class PaperCreate(CreateView):
 #    model = Paper
 #    template_name = 'paper.html'
@@ -107,18 +126,6 @@ def paper(req, pk = None):
 #    model = Paper
 #    template_name = 'paper.html'
 #    success_url = '/'
-
-class PaperDelete(DeleteView):
-    # TODO check if current user owns this article!
-    model = Paper
-    success_url = '/'
-    template_name = 'papers/delete.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(PaperDelete, self).get_context_data(**kwargs)
-        context['paper'] = self.object
-        return context
-
 
 #def register(req):
 #    form = AccountForm()
