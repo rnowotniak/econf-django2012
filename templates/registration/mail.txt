@@ -6,4 +6,4 @@ Dane:
 Imię: {{ user.first_name }}
 Nazwisko: {{ user.last_name }}
 NIP: {{ user.account.nip }}
-Udział: {{ user.account.accounttype.name }} {{ user.account.accounttype.amount }}
+Udział: {{ user.account.accounttype.name }} {{ user.account.accounttype.payment }}
