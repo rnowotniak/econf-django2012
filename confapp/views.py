@@ -58,7 +58,7 @@ def contact(req):
                     send_mail(u'Kopia wiadomości do organizatorów Forum Innowacji Młodych Badaczy',
                         form.cleaned_data['message'], settings.SERVER_EMAIL, [req.user.email])
                 managers = [m[1] for m in settings.MANAGERS]
-                email = EmailMessage(u'[FIMB] Wiadomość od %s %s' % (str(req.user.account), req.user.email),
+                email = EmailMessage(u'[FIMB] Wiadomość od %s %s' % (unicode(req.user.account), req.user.email),
                     form.cleaned_data['message'], settings.SERVER_EMAIL, managers,
                     headers = {'Reply-To': req.user.email})
                 email.send()

@@ -16,9 +16,9 @@ Zrobić dalej należy:
 * PaperCreate i inne tylko dla zalogowanych DONE
 * Aktualizacja profilu - poprawka DONE
 * Usuwanie i edycja tylko swoich artykułów DONE
+* Deploy DONE
 
-
-* Deploy
+KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!
 
 * Bezpieczne serwowanie plików
 * Prezentacja komunikatu (chyba przez sesję)
