@@ -15,10 +15,14 @@ Zrobić dalej należy:
 * Obsługa tranzakcji DONE
 * PaperCreate i inne tylko dla zalogowanych DONE
 
+* Aktualizacja profilu - poprawka
+
 * Usuwanie i edycja tylko swoich artykułów
+* Deploy
 
 * Bezpieczne serwowanie plików
-* Deploy
+
+* Prezentacja komunikatu (chyba przez sesję)
 
 ----
 

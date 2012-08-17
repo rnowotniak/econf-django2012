@@ -3,12 +3,12 @@
 # Create your views here.
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.mail import mail_managers, send_mail
+from django.core.mail import  send_mail
 from django.core.mail.message import EmailMessage
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import UpdateView, CreateView, DeleteView, DeletionMixin
+from django.views.generic.edit import   DeleteView
 import smtplib
 from confapp import forms
 from confapp.forms import AccountForm
@@ -32,12 +32,16 @@ def update_account(req):
         'last_name':req.user.last_name,
         'email':req.user.email,}
     )
+    del form.fields['password']
+    del form.fields['password2']
     if req.method == 'POST':
         form = AccountForm(req.POST, instance = req.user.account)
+        del form.fields['password']
+        del form.fields['password2']
         form.requser = req.user
         if form.is_valid():
             form.save()
-            return HttpResponse('ok!')
+            return HttpResponseRedirect('/')
         else:
             # XXX
             pass
@@ -50,11 +54,11 @@ def contact(req):
         if form.is_valid():
             try:
                 if form.cleaned_data['sendcopy']:
-                    send_mail(u'Kopia wiadomości do organizatorów Forum Innowacji Młodych Badaczy',\
+                    send_mail(u'Kopia wiadomości do organizatorów Forum Innowacji Młodych Badaczy',
                         form.cleaned_data['message'], settings.SERVER_EMAIL, [req.user.email])
                 managers = [m[1] for m in settings.MANAGERS]
-                email = EmailMessage(u'[FIMB] Wiadomość od %s %s' % (str(req.user.account), req.user.email),\
-                    form.cleaned_data['message'], settings.SERVER_EMAIL, managers,\
+                email = EmailMessage(u'[FIMB] Wiadomość od %s %s' % (str(req.user.account), req.user.email),
+                    form.cleaned_data['message'], settings.SERVER_EMAIL, managers,
                     headers = {'Reply-To': req.user.email})
                 email.send()
             except smtplib.SMTPException, e:
