@@ -3,10 +3,11 @@
 # Create your views here.
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import  send_mail
 from django.core.mail.message import EmailMessage
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import   DeleteView
 import smtplib
@@ -19,7 +20,7 @@ from django.template.response import TemplateResponse
 def main(req):
     if req.user.is_authenticated():
         papers = Paper.objects.filter(account__id = req.user.account.id)
-        print papers
+#        print papers
         return TemplateResponse(req, "panel.html", {'papers':papers})
     users = Account.objects.all()
     return TemplateResponse(req, "base.html", {"users": users})
@@ -72,6 +73,13 @@ def contact(req):
 @login_required
 @transaction.commit_on_success
 def paper(req, pk = None):
+    if pk is not None:
+        try:
+            paper = Paper.objects.get(pk = pk)
+            if paper.account.user_id != req.user.id:
+                raise Paper.DoesNotExist
+        except Paper.DoesNotExist, e:
+            raise Http404('Nie ma takiego artykułu')
     attachments = None
     if req.method == 'POST':
         form = forms.PaperForm(req.POST, req.FILES)
@@ -106,6 +114,8 @@ class PaperDelete(DeleteView):
     def get_context_data(self, **kwargs):
         context = super(PaperDelete, self).get_context_data(**kwargs)
         context['paper'] = self.object
+        if self.get_object().account.user.id != self.request.user.id:
+            raise Http404('Nie posiadasz takiego artykułu')
         return context
 
     @method_decorator(login_required)

@@ -14,14 +14,13 @@ Zrobić dalej należy:
 * Pliki DONE
 * Obsługa tranzakcji DONE
 * PaperCreate i inne tylko dla zalogowanych DONE
+* Aktualizacja profilu - poprawka DONE
+* Usuwanie i edycja tylko swoich artykułów DONE
 
-* Aktualizacja profilu - poprawka
 
-* Usuwanie i edycja tylko swoich artykułów
 * Deploy
 
 * Bezpieczne serwowanie plików
-
 * Prezentacja komunikatu (chyba przez sesję)
 
 ----
