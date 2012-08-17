@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load mytags %}
+
+{% block content %}
+
+    <h2>Zgłoszenie referatu</h2>
+
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        <table>
+        {{  form.as_table }}
+        </table>
+
+        {% if attachments %}
+
+            <h3>Przesłane wersje artykułu:</h3>
+            <ul>
+            {% for attachment in attachments %}
+                <li><a href="/media/{{ attachment.file }}">{{ attachment.created }}</a>
+                    ({% if attachment.type == 0 %}artykuł{% else %}prezentacja{% endif %})
+                </li>
+            {% endfor %}
+            </ul>
+
+        {% endif %}
+
+        <br/><br/>
+        <input type="submit" value="Zgłoś" />
+    </form>
+
+{% endblock %}

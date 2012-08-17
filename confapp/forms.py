@@ -10,7 +10,7 @@ from django.forms.models import ModelForm
 from django.template import Context
 from django.template.response import TemplateResponse
 import smtplib
-from confapp.models import Account, Paper
+from confapp.models import Account, Paper, Attachment
 from django.conf import settings
 
 class AccountForm(ModelForm):
@@ -154,3 +154,10 @@ class PaperForm(ModelForm):
 
     required_css_class = "required"
     error_css_class = "error"
+
+    attachment = forms.FileField(label='Plik', required = False)
+    type = forms.ChoiceField(choices = Attachment.TYPE_CHOICES, label='Typ')
+
+
+
+

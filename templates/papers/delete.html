@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Usunięcie referatu</h2>
+
+    Czy na pewno chcesz usunąć artykuł <b>{{ object.title }}</b>?
+
+    <form action="" method="post">{% csrf_token %}
+
+    {{ form }}
+
+        <br/><br/>
+        <input type="submit" value="Usuń" />
+    </form>
+
+{% endblock %}

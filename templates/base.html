@@ -36,7 +36,7 @@
         {%  if user.is_anonymous %}
             Nie jesteś zalogowany.
         {%  else %}
-            Jesteś zalogowany jako: {{ user }}
+            Jesteś zalogowany jako: {{ user.account }}
             <a href="/logout">wyloguj</a>
         {%  endif %}
         <br/>

@@ -1,12 +1,19 @@
-from confapp.models import Conference, Account, AccountType
+from confapp.models import Conference, Account, AccountType, Paper, Attachment
 from django.contrib import admin
 
 class ConferenceAdmin(admin.ModelAdmin):
-	list_display = ('name', 'date')
-	search_fields = ['name']
+    list_display = ('name', 'date')
+    search_fields = ['name']
 
 admin.site.register(Conference, ConferenceAdmin)
 admin.site.register(Account)
 admin.site.register(AccountType)
 
+class AttachmentInline(admin.StackedInline):
+    model = Attachment
+
+class PaperAdmin(admin.ModelAdmin):
+    inlines = [AttachmentInline,]
+
+admin.site.register(Paper, PaperAdmin)
 

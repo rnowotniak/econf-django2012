@@ -9,15 +9,18 @@ Zrobić dalej należy:
 * Hasło wpisywane przez użytkownika podczas rejestracji DONE
 * Wysyłanie maila DONE
 * Reset hasła (Pominąć)
-
-* Refactoring (prawidlowe nazwy klas)
+* Refactoring (prawidlowe nazwy klas) DONE
 
 * Zgłaszanie referatów - prawie DONE, trzeba dopracować
-* Usuwanie i edycja tylko swoich artykułów
+
+* Obsługa tranzakcji
+
 * Pliki
+* Usuwanie i edycja tylko swoich artykułów
 * Deploy
 * PaperCreate i inne tylko dla zalogowanych
 
+----
 
 Account:
     id
@@ -43,7 +46,8 @@ Paper:
 
 Attachment:
     id
+    paper_id
     created (datetime)
-    file (in filesystem)
     type (artykul / prezentacja)
+    file (in filesystem)
 

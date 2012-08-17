@@ -6,11 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import mail_managers, send_mail
 from django.core.mail.message import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic.edit import UpdateView, CreateView, DeleteView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView, DeletionMixin
 import smtplib
 from confapp import forms
 from confapp.forms import AccountForm
-from confapp.models import Paper
+from confapp.models import Paper, Attachment
 from models import Account
 from django.template.response import TemplateResponse
 
@@ -38,7 +38,7 @@ def update_account(req):
         else:
             # XXX
             pass
-    return TemplateResponse(req, "register.html", {"form": form})
+    return TemplateResponse(req, "registration/register.html", {"form": form})
 
 @login_required
 def contact(req):
@@ -62,43 +62,63 @@ def contact(req):
         form = forms.ContactForm()
     return TemplateResponse(req, "contact.html", {'form':form})
 
-#@login_required
-#def paper(req, id = None):
-#    if req.method == 'POST':
-#        form = forms.PaperForm(req.POST)
-#        if form.is_valid():
-#            paper = form.save(commit = False)
-#            paper.account = req.user.account
-#            paper.save()
-#            return HttpResponseRedirect('/')
-#    else:
-#        form = forms.PaperForm()
-#    return TemplateResponse(req, "paper.html", {'form': form})
+@login_required
+def paper(req, pk = None):
+    attachments = None
+    if req.method == 'POST':
+        form = forms.PaperForm(req.POST, req.FILES)
+        if pk is not None:
+            form = forms.PaperForm(req.POST, req.FILES, instance = Paper.objects.get(pk = pk))
+        if form.is_valid():
+            paper = form.save(commit = False)
+            paper.account = req.user.account
+            paper.save()
+            if req.FILES.has_key('attachment'):
+                file = req.FILES['attachment']
+                attachment = Attachment(type=form.cleaned_data['type'], file=file)
+                attachment.paper = paper
+                paper.attachment_set.add(attachment)
+                attachment.save()
 
-class PaperCreate(CreateView):
-    model = Paper
-    template_name = 'paper.html'
-    def get_initial(self):
-        # Get the initial dictionary from the superclass method
-        initial = super(PaperCreate, self).get_initial()
-        initial = initial.copy()
-        initial['authors'] = '%s %s' % (self.request.user.first_name, self.request.user.last_name)
-        return initial
-    def form_valid(self, form):
-        form.instance.account = self.request.user.account
-        return super(PaperCreate, self).form_valid(form)
+            return HttpResponseRedirect('/')
+    elif pk:
+        paper = Paper.objects.get(pk = pk)
+        form = forms.PaperForm(instance = paper)
+        attachments = paper.attachment_set.all()
+    else:
+        form = forms.PaperForm(initial={'authors':req.user.account})
+    return TemplateResponse(req, "papers/paper.html", {'form': form, 'attachments': attachments})
 
-class PaperUpdate(UpdateView):
-    model = Paper
-    template_name = 'paper.html'
-    success_url = '/'
-    # TODO check if current user owns this article!
+#class PaperCreate(CreateView):
+#    model = Paper
+#    template_name = 'paper.html'
+#    def get_initial(self):
+#        # Get the initial dictionary from the superclass method
+#        initial = super(PaperCreate, self).get_initial()
+#        initial = initial.copy()
+#        initial['authors'] = '%s %s' % (self.request.user.first_name, self.request.user.last_name)
+#        return initial
+#    def form_valid(self, form):
+#        form.instance.account = self.request.user.account
+#        return super(PaperCreate, self).form_valid(form)
+#
+#class PaperUpdate(UpdateView):
+#    # TODO check if current user owns this article!
+#    model = Paper
+#    template_name = 'paper.html'
+#    success_url = '/'
 
 class PaperDelete(DeleteView):
+    # TODO check if current user owns this article!
     model = Paper
     success_url = '/'
-    template_name = 'paper.html'
-    # TODO check if current user owns this article!
+    template_name = 'papers/delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaperDelete, self).get_context_data(**kwargs)
+        context['paper'] = self.object
+        return context
+
 
 #def register(req):
 #    form = AccountForm()

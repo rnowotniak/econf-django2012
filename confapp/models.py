@@ -53,6 +53,19 @@ class Paper(models.Model):
     def get_absolute_url(self):
         return '/papers/%d' % self.id
 
+class Attachment(models.Model):
+    ARTICLE = 0
+    PRESENTATION = 1
+    TYPE_CHOICES = (
+        (ARTICLE, 'Artykuł'),
+        (PRESENTATION, 'Prezentacja'),
+    )
+
+    paper = models.ForeignKey(Paper, editable = False)
+    created = models.DateTimeField(auto_now_add = True)
+    type = models.IntegerField(choices = TYPE_CHOICES, default = ARTICLE)
+    file = models.FileField(upload_to='attachments')
+
 def create_user_account(sender, instance, created, **kwargs):
 	if created:
 		Account.objects.create(user=instance)
