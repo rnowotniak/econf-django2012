@@ -76,7 +76,7 @@ def get_attachment(req, id):
     attachment = Attachment.objects.get(id=id)
     file = attachment.file
     content = file.read()
-    return HttpResponse(content, mimetype = mimetypes.guess_type(str(file)))
+    return HttpResponse(content, mimetype = mimetypes.guess_type(str(file))[0])
 
 @login_required
 @transaction.commit_on_success
