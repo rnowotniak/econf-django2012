@@ -27,6 +27,8 @@ urlpatterns = patterns('',
 #    (r'^papers/(?P<pk>\d+)$', PaperUpdate.as_view()),
 #    (r'^papers/$', PaperCreate.as_view()),
 
+    (r'^attachments/(?P<id>\d+)$', 'confapp.views.get_attachment'),
+
     (r'^accounts/changepass/$', 'django.contrib.auth.views.password_change'),
     (r'^accounts/changepassdone$', 'django.contrib.auth.views.password_change_done'),
     (r'^login$', 'django.contrib.auth.views.login'),

@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import   DeleteView
+import mimetypes
 import smtplib
 from confapp import forms
 from confapp.forms import AccountForm
@@ -69,6 +70,13 @@ def contact(req):
     else:
         form = forms.ContactForm()
     return TemplateResponse(req, "contact.html", {'form':form})
+
+@login_required()
+def get_attachment(req, id):
+    attachment = Attachment.objects.get(id=id)
+    file = attachment.file
+    content = file.read()
+    return HttpResponse(content, mimetype = mimetypes.guess_type(str(file)))
 
 @login_required
 @transaction.commit_on_success

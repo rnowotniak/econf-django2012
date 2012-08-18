@@ -17,10 +17,10 @@ Zrobić dalej należy:
 * Aktualizacja profilu - poprawka DONE
 * Usuwanie i edycja tylko swoich artykułów DONE
 * Deploy DONE
+* Bezpieczne serwowanie plików  DONE
 
-KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!
+KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- sprawdzić, czy jest ok
 
-* Bezpieczne serwowanie plików
 * Prezentacja komunikatu (chyba przez sesję)
 
 ----

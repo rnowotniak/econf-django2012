@@ -17,7 +17,7 @@
             <h3>Przesłane wersje artykułu:</h3>
             <ul>
             {% for attachment in attachments %}
-                <li><a href="/media/{{ attachment.file }}">{{ attachment.created }}</a>
+                <li><a href="/attachments/{{ attachment.id }}">{{ attachment.created }}</a>
                     ({% if attachment.type == 0 %}artykuł{% else %}prezentacja{% endif %})
                 </li>
             {% endfor %}
