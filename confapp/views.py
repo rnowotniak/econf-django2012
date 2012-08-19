@@ -19,12 +19,14 @@ from models import Account
 from django.template.response import TemplateResponse
 
 def main(req):
-    if req.user.is_authenticated():
+    if req.user.is_authenticated(): # logged in user
         papers = Paper.objects.filter(account__id = req.user.account.id)
-#        print papers
-        return TemplateResponse(req, "panel.html", {'papers':papers})
-    users = Account.objects.all()
-    return TemplateResponse(req, "base.html", {"users": users})
+        if req.user.is_staff:
+            users = Account.objects.all()
+        return TemplateResponse(req, "panel.html", {'papers':papers, 'users':users})
+    return HttpResponseRedirect('/register')
+#    users = Account.objects.all()
+#    return TemplateResponse(req, "base.html", {"users": users})
 
 @login_required
 @transaction.commit_on_success

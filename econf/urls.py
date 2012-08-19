@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.formtools.preview import FormPreview
 from confapp.forms import AccountFormPreview, AccountForm
 from confapp.views import PaperDelete
@@ -14,10 +15,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'econf.views.home', name='home'),
     # url(r'^econf/', include('econf.foo.urls')),
 
-    #(r'^$', 'confapp.views.main'),
+    (r'^$', 'confapp.views.main'),
 
     #(r'^register$', 'confapp.views.register'),
-    (r'^$', AccountFormPreview(AccountForm)),
+    (r'^register$', user_passes_test(lambda u: not u.is_authenticated(), '/logout')(AccountFormPreview(AccountForm))),
     (r'^accounts/profile/$', 'confapp.views.update_account'),
     (r'^contact$', 'confapp.views.contact'),
 

@@ -13,38 +13,31 @@
 <body>
 <div class="page">
     <div class="header">
-        <h1><a href="/">System zarządzania konferencjami</a></h1>
+        <h1 onclick="location.href='/';"><a href="/">System zarządzania konferencjami</a></h1>
     </div>
     <div class="body">
         <hr/>
+        {%  if user.is_anonymous %}
+            Posiadasz już konto? <a href="/login">Zaloguj się.</a><br/>
+        {%  else %}
+            Jesteś zalogowany jako: {{ user.account }}
+            {% if user.is_staff %}
+                <b>(admin)</b>
+            {% endif %}
+            <a href="/logout">wyloguj</a>
+        {%  endif %}
+        <hr/>
+
 
         {% block content %}
 
-            Zarejestrowani użytkownicy:
-            <ol>
-                {% for u in users %}
-                    <li>{{ u }}</li>
-                {% endfor %}
-            </ol>
-            <a href="/register">Zarejestruj się</a>
+
 
         {% endblock %}
 
     </div>
     <div class="footer">
         <hr/>
-        {%  if user.is_anonymous %}
-            Nie jesteś zalogowany.
-        {%  else %}
-            Jesteś zalogowany jako: {{ user.account }}
-            <a href="/logout">wyloguj</a>
-        {%  endif %}
-        <br/>
-        <br/>
-        <a href="/">strona główna</a><br/>
-        <a href="/login">logowanie</a><br/>
-        <a href="/admin">admin</a>
-
     </div>
 </div>
 </body>

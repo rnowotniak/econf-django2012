@@ -18,11 +18,10 @@ Zrobić dalej należy:
 * Usuwanie i edycja tylko swoich artykułów DONE
 * Deploy DONE
 * Bezpieczne serwowanie plików  DONE
+* Ustawić docelowe URL-e  DONE
 
 * Dostęp tylko do swoich plików
-
-KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- sprawdzić, czy jest ok
-
+* KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- sprawdzić, czy jest ok
 * Prezentacja komunikatu (chyba przez sesję)
 
 ----

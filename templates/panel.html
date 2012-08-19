@@ -8,7 +8,6 @@
 
 Masz do wyboru:
     <ol>
-        <li><a href="/logout">Wylogowanie</a></li>
         <li><a href="/accounts/changepass/">Zmiana hasła</a></li>
         <li><a href="/accounts/profile/">Aktualizacja danych</a></li>
         <li><a href="/contact">Wiadomość do organizatorów</a></li>
@@ -23,5 +22,12 @@ Masz do wyboru:
         <li><a href="/papers/{{ paper.id }}">{{ paper }}</a> &nbsp;&nbsp;[<a href="/papers/delete/{{ paper.id }}">usuń</a>]</li>
     {% endfor %}
     </ul>
+
+<h3>Zarejestrowani użytkownicy:</h3>
+    <ol>
+        {% for u in users %}
+            <li>{{ u }} ({{ u.account.paper_set.all|length }} artykułów)</li>
+        {% endfor %}
+    </ol>
 
 {% endblock %}
