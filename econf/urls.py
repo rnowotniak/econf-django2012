@@ -14,10 +14,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'econf.views.home', name='home'),
     # url(r'^econf/', include('econf.foo.urls')),
 
-    (r'^$', 'confapp.views.main'),
+    #(r'^$', 'confapp.views.main'),
 
     #(r'^register$', 'confapp.views.register'),
-    (r'^register$', AccountFormPreview(AccountForm)),
+    (r'^$', AccountFormPreview(AccountForm)),
     (r'^accounts/profile/$', 'confapp.views.update_account'),
     (r'^contact$', 'confapp.views.contact'),
 

@@ -19,6 +19,8 @@ Zrobić dalej należy:
 * Deploy DONE
 * Bezpieczne serwowanie plików  DONE
 
+* Dostęp tylko do swoich plików
+
 KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- sprawdzić, czy jest ok
 
 * Prezentacja komunikatu (chyba przez sesję)
