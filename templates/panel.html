@@ -23,11 +23,15 @@ Masz do wyboru:
     {% endfor %}
     </ul>
 
+{% if user.is_staff %}
+
 <h3>Zarejestrowani użytkownicy:</h3>
     <ol>
-        {% for u in users %}
-            <li>{{ u }} ({{ u.account.paper_set.all|length }} artykułów)</li>
+        {% for a in accounts %}
+            <li>{{ a }} ({{ a.paper_set.all|length }} artykułów)</li>
         {% endfor %}
     </ol>
+
+{% endif %}
 
 {% endblock %}

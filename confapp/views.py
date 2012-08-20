@@ -3,6 +3,7 @@
 # Create your views here.
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import  send_mail
 from django.core.mail.message import EmailMessage
@@ -21,11 +22,12 @@ from django.template.response import TemplateResponse
 def main(req):
     if req.user.is_authenticated(): # logged in user
         papers = Paper.objects.filter(account__id = req.user.account.id)
+        accounts = []
         if req.user.is_staff:
-            users = Account.objects.all()
-        return TemplateResponse(req, "panel.html", {'papers':papers, 'users':users})
+            accounts = Account.objects.all()
+        return TemplateResponse(req, "panel.html", {'papers':papers, 'accounts':accounts})
     return HttpResponseRedirect('/register')
-#    users = Account.objects.all()
+#    users = User.objects.all()
 #    return TemplateResponse(req, "base.html", {"users": users})
 
 @login_required
@@ -75,9 +77,15 @@ def contact(req):
 
 @login_required()
 def get_attachment(req, id):
-    attachment = Attachment.objects.get(id=id)
-    file = attachment.file
-    content = file.read()
+    try:
+        attachment = Attachment.objects.get(id=id)
+        if attachment.paper.account.user.id != req.user.id:
+            # The logged user does not own the requested attachment
+            raise Attachment.DoesNotExist
+        file = attachment.file
+        content = file.read()
+    except Attachment.DoesNotExist:
+        raise Http404('No such attachment')
     return HttpResponse(content, mimetype = mimetypes.guess_type(str(file))[0])
 
 @login_required

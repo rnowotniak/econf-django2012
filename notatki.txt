@@ -19,10 +19,10 @@ Zrobić dalej należy:
 * Deploy DONE
 * Bezpieczne serwowanie plików  DONE
 * Ustawić docelowe URL-e  DONE
+* Dostęp tylko do swoich plików DONE
+* KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- DONE
 
-* Dostęp tylko do swoich plików
-* KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- sprawdzić, czy jest ok
-* Prezentacja komunikatu (chyba przez sesję)
+* Prezentacja komunikatu (chyba przez sesję) -- albo przez auth messages
 
 ----
 
