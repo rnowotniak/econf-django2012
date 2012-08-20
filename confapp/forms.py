@@ -28,7 +28,8 @@ class AccountForm(ModelForm):
     password = forms.CharField(widget = widgets.PasswordInput(), label='Hasło')
     password2 = forms.CharField(widget = widgets.PasswordInput(), label='Powtórz hasło')
 
-    accounttype = forms.ModelChoiceField(queryset = AccountType.objects.filter(payment__gt=0).order_by('id'), initial=1)
+    accounttype = forms.ModelChoiceField(queryset = AccountType.objects.filter(payment__gt=0).order_by('id'),
+        label='Uczestnictwo', initial=1)
 
     required_css_class = "required"
     error_css_class = "error"
