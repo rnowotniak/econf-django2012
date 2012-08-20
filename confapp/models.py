@@ -54,6 +54,9 @@ class Paper(models.Model):
         return '/papers/%d' % self.id
 
 class Attachment(models.Model):
+    class Meta:
+        ordering = ['-created']
+
     ARTICLE = 0
     PRESENTATION = 1
     TYPE_CHOICES = (

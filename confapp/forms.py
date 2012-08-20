@@ -4,6 +4,7 @@ import django
 from django.contrib.auth.models import User
 from django.contrib.formtools.preview import FormPreview
 from django import forms
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.forms import widgets
 from django.forms.models import ModelForm
@@ -163,6 +164,12 @@ class PaperForm(ModelForm):
     attachment = forms.FileField(label='Plik', required = False)
     type = forms.ChoiceField(choices = Attachment.TYPE_CHOICES, label='Typ')
 
+    def clean_attachment(self):
+        attachment = self.cleaned_data['attachment']
+        print attachment._size
+        if attachment._size > settings.MAX_UPLOAD_SIZE:
+            raise ValidationError('Dopuszczalny rozmiar pliku: %d MB' % (settings.MAX_UPLOAD_SIZE / 1024/1024))
+        return attachment
 
 
 

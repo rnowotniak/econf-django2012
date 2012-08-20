@@ -23,6 +23,8 @@ Zrobić dalej należy:
 * KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- DONE
 * Prezentacja komunikatu przez contrib.messages framework - DONE
 
+* Maksymarlny rozmiar uploadowanego pliku
+
 ----
 
 Account:
