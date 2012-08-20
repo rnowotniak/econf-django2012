@@ -2,9 +2,8 @@
 
 # Create your views here.
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import  send_mail
 from django.core.mail.message import EmailMessage
 from django.db import transaction
@@ -47,10 +46,8 @@ def update_account(req):
         form.requser = req.user
         if form.is_valid():
             form.save()
+            messages.success(req, 'Dane zaktualizowane')
             return HttpResponseRedirect('/')
-        else:
-            # XXX
-            pass
     return TemplateResponse(req, "registration/register.html", {"form": form})
 
 @login_required
@@ -67,6 +64,7 @@ def contact(req):
                     form.cleaned_data['message'], settings.SERVER_EMAIL, managers,
                     headers = {'Reply-To': req.user.email})
                 email.send()
+                messages.success(req, "Wiadomość została wysłana")
             except smtplib.SMTPException, e:
                 print e
                 return HttpResponse("Błąd podczas wysyłania wiadomości")
@@ -113,7 +111,7 @@ def paper(req, pk = None):
                 attachment.paper = paper
                 paper.attachment_set.add(attachment)
                 attachment.save()
-
+            messages.success(req, "Zgłoszenie referatu zostało %s." % ('przyjęte' if pk is None else 'zaktualizowane'))
             return HttpResponseRedirect('/')
     elif pk:
         paper = Paper.objects.get(pk = pk)
@@ -139,6 +137,11 @@ class PaperDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PaperDelete, self).dispatch(*args, **kwargs)
+
+    def delete(self, req, *args, **kwargs):
+        result = super(PaperDelete, self).delete(req, *args, **kwargs)
+        messages.success(req, 'Artykuł został usunięty.')
+        return result
 
 #class PaperCreate(CreateView):
 #    model = Paper

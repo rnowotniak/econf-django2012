@@ -21,8 +21,7 @@ Zrobić dalej należy:
 * Ustawić docelowe URL-e  DONE
 * Dostęp tylko do swoich plików DONE
 * KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- DONE
-
-* Prezentacja komunikatu (chyba przez sesję) -- albo przez auth messages
+* Prezentacja komunikatu przez contrib.messages framework - DONE
 
 ----
 

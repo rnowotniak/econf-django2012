@@ -28,10 +28,21 @@
         {%  endif %}
         <hr/>
 
+    {# MESSAGES  ("Profil zaktualizowano" etc.) #}
+    {% if messages %}
+        <div style="background-color:#40FF40; border:1px solid red; padding: 5px">
+            <ul>
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
 
         {% block content %}
 
-
+        {# MAIN CONTENT HERE #}
 
         {% endblock %}
 
