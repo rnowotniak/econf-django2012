@@ -122,7 +122,6 @@ def paper(req, pk = None):
     return TemplateResponse(req, "papers/paper.html", {'form': form, 'attachments': attachments})
 
 class PaperDelete(DeleteView):
-    # TODO check if current user owns this article!
     model = Paper
     success_url = '/'
     template_name = 'papers/delete.html'
