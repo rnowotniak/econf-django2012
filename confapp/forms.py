@@ -166,8 +166,8 @@ class PaperForm(ModelForm):
 
     def clean_attachment(self):
         attachment = self.cleaned_data['attachment']
-        print attachment._size
-        if attachment._size > settings.MAX_UPLOAD_SIZE:
+        # print attachment._size
+        if attachment is not None and attachment._size > settings.MAX_UPLOAD_SIZE:
             raise ValidationError('Dopuszczalny rozmiar pliku: %d MB' % (settings.MAX_UPLOAD_SIZE / 1024/1024))
         return attachment
 
