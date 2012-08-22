@@ -25,7 +25,7 @@ def main(req):
         if req.user.is_staff:
             accounts = Account.objects.all()
         return TemplateResponse(req, "panel.html", {'papers':papers, 'accounts':accounts})
-    return HttpResponseRedirect('/register')
+    return HttpResponseRedirect('/login')
 #    users = User.objects.all()
 #    return TemplateResponse(req, "base.html", {"users": users})
 
