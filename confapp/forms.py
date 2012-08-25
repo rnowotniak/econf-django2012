@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import django
+from django.contrib import messages
 
 from django.contrib.auth.models import User
 from django.contrib.formtools.preview import FormPreview
@@ -9,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.forms import widgets
 from django.forms.models import ModelForm
+from django.http import HttpResponseRedirect
 from django.template import Context
 from django.template.response import TemplateResponse
 import smtplib
@@ -148,7 +150,8 @@ class AccountFormPreview(FormPreview):
                     yamldata, 'econf <%s>' % settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
             except Exception:
                 raise
-            return TemplateResponse(req, "thanks.html")
+            messages.success(req, 'Dziękujemy za rejestrację. Dostaniesz maila z potwierdzeniem.')
+            return HttpResponseRedirect('/')
         except smtplib.SMTPException, e:
             print e
             return TemplateResponse(req, "thanks.html", {'mailerror':True})
