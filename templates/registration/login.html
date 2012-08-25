@@ -3,19 +3,24 @@
 {% block content %}
 
    {% if form.errors %}
+   <div class="error_message">
        Nieprawidłowy login/hasło.
    {% endif %}
-
+   </div>
+<div class="login_bar">
+<h1>Forum Innowacji MĹodych Badaczy</h1>
+<div class="login">
 <form action="" method="post">
     {%  csrf_token %}
-    email:
-    {{ form.username }}<br />
-    password:
-    {{ form.password }}<br />
-
-    <input type="submit" value="Log In" />
+    <label>e-mail:</label>
+    <div class="login_div"> {{ form.username }} </div>
+    <label>hasło:</label>
+    <div class="login_div">{{ form.password }}</div>
+    <input type="submit" class="button" value="Zaloguj się" />
 </form>
-
-    Nie masz jeszcze konta? <a href="/register">Zarejestruj się.</a>
-
+</div>
+<div class="register">
+    <span>Nie masz jeszcze konta? </span>
+	<a href="/register">Zarejestruj się.</a>
+</div>
 {%  endblock %}

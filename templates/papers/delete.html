@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="my_account">
+<h1>Forum Innowacji Młodych Badaczy</h1>
     <h2>Usunięcie referatu</h2>
 
-    Czy na pewno chcesz usunąć artykuł <b>{{ object.title }}</b>?
+   
 
-    <form action="" method="post">{% csrf_token %}
-
+    <form action="" class="delete" method="post">{% csrf_token %}
+	 Czy na pewno chcesz usunąć artykuł <b>{{ object.title }}</b>?<br /><br/>
     {{ form }}
 
-        <br/><br/>
-        <input type="submit" value="Usuń" />
+      
+        <input type="submit" value="Usuń" class="button"/>
     </form>
-
+</div>
 {% endblock %}

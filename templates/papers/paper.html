@@ -3,18 +3,23 @@
 {% load mytags %}
 
 {% block content %}
+<div class="my_account">
+<h1>Forum Innowacji Młodych Badaczy</h1>
+    <h2>Zgłoszenie referatu:</h2>
 
-    <h2>Zgłoszenie referatu</h2>
+    <form action="" class="add_paper" method="post" enctype="multipart/form-data">{% csrf_token %}
 
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
 
-        <table>
-        {{  form.as_table }}
-        </table>
+        {{  form.as_p }}
+   
 
-        {% if attachments %}
+        
 
-            <h3>Przesłane wersje artykułu:</h3>
+        <p><input type="submit" value="Zgłoś"class="button" /></p>
+		
+	{% if attachments %}
+
+            <h2>Przesłane wersje artykułu:</h2>
             <ul>
             {% for attachment in attachments %}
                 <li><a href="/attachments/{{ attachment.id }}">{{ attachment.created }}</a>
@@ -24,9 +29,6 @@
             </ul>
 
         {% endif %}
-
-        <br/><br/>
-        <input type="submit" value="Zgłoś" />
     </form>
-
+</div>
 {% endblock %}

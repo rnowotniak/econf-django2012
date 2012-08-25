@@ -1,37 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h2>Panel uczestnika konferencji</h2>
+<div class="my_account">
+<h1>Forum Innowacji Młodych Badaczy</h1>
 
     <div>{{ message }}</div>
+<div class="menu_left">
 
-Masz do wyboru:
-    <ol>
+    <ul class="menu_left_list" >
+		<li style="background-color:#777777; color:white; font-weight:bold ">MOJE KONTO:</li>
         <li><a href="/accounts/changepass/">Zmiana hasła</a></li>
         <li><a href="/accounts/profile/">Aktualizacja danych</a></li>
         <li><a href="/contact">Wiadomość do organizatorów</a></li>
-    </ol>
+    </ul>
+</div>
+<div class="my_papers">
 
-<h3>Moje referaty</h3>
-
-    <a href="/papers/">Dodaj referat</a>
-
-    <ul>
+    <ul class="menu_left_list">
+	<li style="background-color:#777777; color:white; font-weight:bold; ">MOJE REFERATY: <a class="add" href="/papers/">Dodaj nowy</a> </li>
+	
     {% for paper in papers %}
-        <li><a href="/papers/{{ paper.id }}">{{ paper }}</a> &nbsp;&nbsp;[<a href="/papers/delete/{{ paper.id }}">usuń</a>]</li>
+        <li><a href="/papers/{{ paper.id }}">{{ paper }}</a> <a class="delete" href="/papers/delete/{{ paper.id }}">usuń</a></li>
     {% endfor %}
     </ul>
-
+</div>
+<div class="if_admin">
 {% if user.is_staff %}
 
-<h3>Zarejestrowani użytkownicy:</h3>
-    <ol>
+
+    <ul class="registered_users" > &nbsp;
+	<li style="background-color:#777777; color:white; font-weight:bold; ">Zarejestrowani użytkownicy:</li>
         {% for a in accounts %}
             <li>{{ a }} ({{ a.paper_set.all|length }} artykułów)</li>
         {% endfor %}
-    </ol>
+    </ul>
 
 {% endif %}
 
 {% endblock %}
+</div>
+</div>

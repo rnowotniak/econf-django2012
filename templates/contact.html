@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="my_account">
+<h1>Forum Innowacji Młodych Badaczy</h1>
 <h2>Wiadomość do organizatorów</h2>
-
+<div class="contact_form">
     <form action="" method="post">{% csrf_token %}
 
-        {{ form.message.label }}:<br/>
+       <label> {{ form.message.label }}:</label>
+	   
         {{ form.message }}
         {{ form.message.errors }}
 
-        <br/>
-        <br/>
-
-        {{ form.sendcopy }}<label for="id_sendcopy">Wyślij kopię wiadomości na adres {{ user.email }}</label>
-
-        <br/>
-        <br/>
-
-        <br/><br/>
-        <input type="submit" value="Wyślij" />
+       
+		<p style="padding-top:10px;">
+			<label for="id_sendcopy">Wyślij do mnie kopię: </label>
+			{{ form.sendcopy }} 
+		</p>
+       
+        <input type="submit" value="Wyślij" class="button" />
     </form>
-
+</div>
+</div>
 {% endblock %}

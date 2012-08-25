@@ -1,4 +1,4 @@
-*{margin: 0px; /*padding: 0px; font: normal normal 12px Arial;*/ }
+*{margin: 0px;  font: normal normal 12px Arial; }
 
 body{background: url('../image/body_bg.png');}
 
@@ -8,7 +8,7 @@ body{background: url('../image/body_bg.png');}
 
 .footer{}
 
-.inputs {
+input{
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CBCCCD;
     border-radius: 3px 3px 3px 3px;
@@ -25,7 +25,7 @@ body{background: url('../image/body_bg.png');}
 	width:238px;
 }
 
-.labels {
+label {
 	float: left;
     line-height: 25px;
     text-align: right;
@@ -35,29 +35,63 @@ body{background: url('../image/body_bg.png');}
     font-size: 12px;
 }
 
+select {
+background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CBCCCD;
+    border-radius: 3px 3px 3px 3px;
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    height: auto !important;
+    padding: 5px !important;
+    position: relative;
+    z-index: 1;
+	height:18px;
+	padding-bottom: 0;
+    padding-top: 2px;
+	width:248px;
+}
+
+textarea {width:245px;}
+
 .button{
 	background-color: #a6a6a6;
     border: 0 none;
     color: #ffffff;
     font-family: "Segoe UI Web Semibold","Segoe UI Web Regular","Segoe UI","Helvetica Neue",Arial;
 	border-radius: 3px 3px 3px 3px;
-    font-size: 100%;
+    font-size: 12px;
     height: 2em;
     min-width: 6em;
     padding: 3px 12px 5px;
+	width:50px;
+	height:26px;
 }
 
-.height_10  { padding: 10px 0 0 0; }
+.error {
+	background: url('../image/error.png');
+	background-repeat:no-repeat;
+	background-position:490px 3px;
+	}
+	
+.errorlist {color:red; text-align:right; list-style-type:none; position:relative;}
+.errorlist li{position:absolute; bottom:-20px; left:520px; font-size:11px;}
 
-.with_padding_top {padding-top:20px;}
-.with_error {height:45px;}
+.error input { border:1px solid red;}
 
-input.error  { border:1px solid red;}
 
 label.error { color: red; display:block; font-size:10px; text-align:center;}
 
-/*header */
-
+h2{
+	background-color:#777777; 
+	color:white; 
+	font-weight:bold;
+	height:20px;
+	padding:10px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:20px;
+}
 
 
 /*main.php*/
@@ -96,12 +130,16 @@ h1 {
     padding: 26px 24px 46px;
 }
 
-.login_bar .login .labels{ width: 50px; padding-right:15px;}
+.login_bar .login label{ width: 50px; padding-right:15px;}
 
 
-.login_bar .login .inputs{ width: 170px;}
+.login_bar .login input{ width: 170px;}
 
-.login_bar .login  .button {float:right; margin-right:20px;}
+.login_bar .login  .button {float:right; margin-right:17px; width:100px; }
+
+.login_div {
+	height:40px;
+}
 
 .login_bar .register {
 	text-align:center;
@@ -110,7 +148,6 @@ h1 {
 
 .login_bar .register a{
 	color:#777777;
-	font-weight:bold;
 }
 
 .login_bar .user{}
@@ -118,7 +155,7 @@ h1 {
 /*register*/
 .register_form{
 	margin: auto;
-    width: 620px;	
+    width: 900px;	
 	margin-top:20px;
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #E5E5E5;
@@ -128,16 +165,24 @@ h1 {
 	
 }
 
+
+.register_form form{margin:0 auto; margin-top:20px; width:720px;}
+
+.register_form p {
+	min-height: 35px;
+}
+
+
 #form_register {
 	margin-top:20px;
 }
 
-.register_form .labels{padding-right:15px;}
+.register_form label{padding-right:15px;}
 
 .register_form .button{
 	position: absolute;
-	bottom:10px;
-	right:135px;
+	bottom:20px;
+	right:322px;
 }
 
 .radio {
@@ -153,3 +198,231 @@ h1 {
 }
 
 .label_radio{ margin-left:5px; color:#777777}
+.footer {min-height:20px;}
+
+.my_account { 
+	margin: auto;
+    width: 900px;	
+	margin-top:40px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+	position: relative;
+	padding-bottom:30px;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+	min-height:500px;
+	}
+	
+
+.my_account h1 {
+margin:20px;
+}
+.body {position:relative;}
+.user_info {
+	z-index:1000;
+	position:absolute;
+	top:20px;
+	right:40px;
+}
+
+.body a {
+	color:#777777;
+}
+
+.menu_left_list {
+	width:280px;
+	margin:0px;
+	padding:0px;
+	margin-left:20px;
+	list-style-type:none;
+	float:left;
+}
+
+.menu_left li {
+	padding-left:20px;
+	height:25px;
+	padding-top:10px;
+	padding-bottom:3px;
+	border-bottom:1px dotted #777777;
+}
+
+
+
+.menu_left li a{text-decoration:none;}
+
+.my_papers{
+	float:left; 
+	width:580px;
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+}
+
+.my_papers .menu_left_list {
+	width:560px;
+}
+
+.my_papers li{
+	padding-left:20px;
+	height:25px;
+	padding-top:10px;
+	padding-bottom:3px;
+	border-bottom:1px dotted #777777;
+	position:relative;
+}
+
+.my_papers li .delete{
+	position:absolute;
+	right:20px;
+	background-image: url('../image/trash.png');
+	padding-top:2px;
+	height:20px;
+	background-repeat:no-repeat;
+	padding-left:25px;
+}
+
+.my_papers .add {
+	color:white;
+	position:absolute;
+	right:20px;
+	background-image: url('../image/list-add.png');
+	padding-top:2px;
+	background-repeat:no-repeat;
+	padding-left:25px;
+	height:20px;
+}
+	
+.menu_left {
+	width:300px;
+}
+
+.if_admin{
+	width:860px;
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+	margin-left:20px;
+}
+
+.registered_users{
+	clear:both;
+	width:860px;
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+}
+
+.registered_users li{
+	padding-left:20px;
+	height:25px;
+	padding-top:10px;
+	padding-bottom:3px;
+	border-bottom:1px dotted #777777;
+}
+
+.change_pass{
+	margin: auto;
+    width: 900px;	
+	margin-top:20px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+	position: relative;
+	padding-bottom:30px;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+	min-height:400px;
+}
+
+.module  {
+	border:none;
+
+}
+
+.form-row {height:40px;}
+
+.form-row label {padding-right:15px; width:120px;}
+.submit-row{position:relative;}
+.submit-row input {
+	position:absolute;
+	left:240px;
+	width:150px;
+}
+/* contact */
+.contact_form{
+	margin-left:10px;
+	position:relative;
+}
+
+.contact_form label{width:120px; padding-right:15px;}
+.contact_form  .button {position:absolute; left:312px; bottom:-40px;}
+
+/* edit */
+.edit_data {min-height:600px;}
+.edit_data p{
+	margin-bottom:10px;
+	
+}
+
+.edit_data label{
+	margin-right:15px;
+}
+
+.edit_data .button {
+	left:415px;
+}
+
+/* papers */
+.add_paper p {
+	margin-bottom:10px;
+}
+
+.add_paper label{
+	margin-right:15px;
+}
+
+#id_attachment {width:300px;}
+
+.add_paper .button{
+	left:415px;
+}
+
+.delete {margin-left:10px;}
+
+/* message */
+
+.message {
+	height:30px;
+	position:absolute;
+	width:905px;
+	margin-left:20px;
+}
+
+.message ul {
+	background: none repeat scroll 0 0 #9EDEAD;
+    border-bottom: 1px dotted #F2ACC5;
+    border-top: 1px dotted #F2ACC5;
+    color: #647177;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0.2em 0 1em;
+    padding: 0.6em 1em !important;
+    text-align: center;
+	margin-left:5px;
+	padding-right:5px;
+	list-style-type:none;	
+}
+
+.error_message{
+	background: none repeat scroll 0 0 #FACDDD;
+    border-bottom: 1px dotted #F2ACC5;
+    border-top: 1px dotted #F2ACC5;
+    color: #647177;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0.2em 0 1em;
+    padding: 0.6em 1em !important;
+    text-align: center;
+	margin-left:5px;
+	padding-right:5px;
+	list-style-type:none;
+}
+
+#id_sendcopy {width:16px;}
