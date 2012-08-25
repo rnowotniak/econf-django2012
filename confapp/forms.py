@@ -4,6 +4,7 @@ import django
 from django.contrib.auth.models import User
 from django.contrib.formtools.preview import FormPreview
 from django import forms
+from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.forms import widgets
@@ -139,9 +140,14 @@ class AccountFormPreview(FormPreview):
             user.account = account
             c = Context({'user': user})
             body = t.render(c)
-#            print body
             send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',
                 body, 'Komitet Organizacyjny <%s>' % settings.EMAIL_HOST_USER, [cleaned_data['email']])
+            try:
+                yamldata = serializers.serialize('yaml', [account.user, account])
+                send_mail(u'[FIMB] Rejestracja uczestnika: %s <%s>' % (unicode(account), account.user.email),
+                    yamldata, 'econf <%s>' % settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
+            except Exception:
+                raise
             return TemplateResponse(req, "thanks.html")
         except smtplib.SMTPException, e:
             print e
