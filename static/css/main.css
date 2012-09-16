@@ -426,3 +426,11 @@ margin:20px;
 }
 
 #id_sendcopy {width:16px;}
+
+.confirm{
+
+	margin:0 auto;
+}
+.confirm  tr {height:20px;}
+.confirm th {padding-right:20px; text-align:right;  color: #777777;}
+.confirm td {text-align:left;}

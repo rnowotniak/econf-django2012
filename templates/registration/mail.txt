@@ -7,3 +7,6 @@ Imię: {{ user.first_name }}
 Nazwisko: {{ user.last_name }}
 NIP: {{ user.account.nip }}
 Udział: {{ user.account.accounttype.name }} {{ user.account.accounttype.payment }}
+
+Dziękujemy za rejestrację,
+Komitet Organizacyjny FIMB2012

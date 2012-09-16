@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="register_form">
+<h1>Forum Innowacji Młodych Badaczy</h1>
+<br/>
 <h2>Sprawdź poprawność poniższych danych</h2>
 
-<table>
+<table class="confirm">
 {% for field in form %}
     {% if field.name == 'accounttype' %}
         <tr>
@@ -27,7 +29,7 @@
 {% endfor %}
 <input type="hidden" name="{{ stage_field }}" value="2" />
 <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-<p><input type="submit" value="Zarejestruj" /></p>
+<p class="button_surr" ><input type="submit" style="right:340px;" value="Zarejestruj" class="button"/></p>
 </form>
 
 {% comment %}
@@ -40,6 +42,7 @@
 <input type="hidden" name="{{ stage_field }}" value="1" />
 <p><input type="submit" value="Preview" /></p>
 </form>
+</div>
 {% endcomment %}
 
 {% endblock %}

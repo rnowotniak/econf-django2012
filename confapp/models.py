@@ -39,7 +39,7 @@ class AccountType(models.Model):
     payment = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __unicode__(self):
-        return '%s (%.2f)' % (self.name, self.payment)
+        return '%s (%.2f PLN)' % (self.name, self.payment)
 
 class Paper(models.Model):
     account = models.ForeignKey(Account, editable = False)
