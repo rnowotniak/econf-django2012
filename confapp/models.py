@@ -41,17 +41,27 @@ class AccountType(models.Model):
     def __unicode__(self):
         return '%s (%.2f)' % (self.name, self.payment)
 
+
 class Paper(models.Model):
     account = models.ForeignKey(Account, editable = False)
     title = models.CharField(max_length = 256, verbose_name=u'Tytuł')
     authors = models.CharField(max_length = 256, verbose_name='Autorzy')
     abstract = models.TextField(verbose_name="Abstrakt", blank = True)
+    session = models.ForeignKey('SessionType', default = 0, verbose_name = 'Sesja')
 
     def __unicode__(self):
-        return self.title
+        return '%s (Sesja %s)' % (self.title, str(self.session))
 
     def get_absolute_url(self):
         return '/papers/%d' % self.id
+
+
+class SessionType(models.Model):
+    name = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Attachment(models.Model):
     class Meta:
