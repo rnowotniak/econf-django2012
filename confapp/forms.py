@@ -148,7 +148,8 @@ class AccountFormPreview(FormPreview):
                 yamldata = serializers.serialize('yaml', [account.user, account])
                 send_mail(u'[FIMB] Rejestracja uczestnika: %s <%s>' % (unicode(account), account.user.email),
                     yamldata, 'econf <%s>' % settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
-            except Exception:
+            except Exception, e:
+                print e
                 raise
             messages.success(req, 'Dziękujemy za rejestrację. Dostaniesz maila z potwierdzeniem.')
             return HttpResponseRedirect('/')
