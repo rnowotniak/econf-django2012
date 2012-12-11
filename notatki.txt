@@ -22,8 +22,16 @@ Zrobić dalej należy:
 * Dostęp tylko do swoich plików DONE
 * KONIECZNIE UNIEMOZLIWIC UPLOAD PLIKOW .PHP !!!!  -- DONE
 * Prezentacja komunikatu przez contrib.messages framework - DONE
-
 * Maksymarlny rozmiar uploadowanego pliku
+
+Recenzje:
+    * Uaktualnic modele: -- RN
+        * Utworzyc model Review (z polami odpowiadajacymi polom ankiety +  paper_id)
+        * Dodac foreignkey reviewer do Paper
+    * Zarejestrowac profesorow (imiona, nazwiska, hasla) -- DK
+    * Wyslac profesorom maile -- DK
+    * Zaktualizowac szablony panel.html i stworzyc review.html -- RN + (DK)
+
 
 ----
 

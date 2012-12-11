@@ -13,6 +13,57 @@ class Conference(models.Model):
         return self.name
 
 
+class Review(models.Model):
+    paper = models.OneToOneField('Paper')
+
+    NO = 0
+    PARTIALLY = 1
+    YES = 2
+
+    UNACCEPTABLE = 0
+    ACCEPTABLE = 1
+    GOOD = 2
+
+    REJECT = 0
+    REVIEW_REVISED = 1
+    PUBLISH_REVISED = 2
+    PUBLISH = 3
+
+    CHOICES1 = (
+        (NO, 'Nie'),
+        (PARTIALLY, u'Częściowo'),
+        (YES, 'Tak'),
+    )
+    CHOICES2 = (
+        (UNACCEPTABLE, u'Niezadowalająca'),
+        (ACCEPTABLE, u'Zadowalająca'),
+        (GOOD, 'Bardzo dobra'),
+    )
+    CHOICES3 = tuple([(i+1, i+1) for i in range(5)])
+    CHOICES4 = (
+        (REJECT, u'Odrzucić'),
+        (REVIEW_REVISED, u'Poprawioną wersję poddać ponownej recenzji'),
+        (PUBLISH_REVISED, u'Opublikować po korekcie'),
+        (PUBLISH, u'Opublikować bez poprawek'),
+    )
+
+    original = models.IntegerField(choices = CHOICES1, default = 0)
+    significant = models.IntegerField(choices = CHOICES1, default = 0)
+    clear = models.IntegerField(choices = CHOICES1, default = 0)
+    correct = models.IntegerField(choices = CHOICES1, default = 0)
+    citing = models.IntegerField(choices = CHOICES1, default = 0)
+    figures = models.IntegerField(choices = CHOICES1, default = 0)
+
+    adequacy = models.IntegerField(choices = CHOICES2, default = 0)
+    novelty = models.IntegerField(choices = CHOICES2, default = 0)
+
+    rating = models.IntegerField(choices = CHOICES3, default = 0)
+    summary = models.IntegerField(choices = CHOICES4, default = 0)
+
+    remarks = models.TextField(verbose_name='Remarks', blank=True)
+    comments = models.TextField(verbose_name='Comments', blank=True)
+
+
 class Account(models.Model):
     user = models.OneToOneField(User)
 
@@ -48,6 +99,7 @@ class Paper(models.Model):
     authors = models.CharField(max_length = 256, verbose_name='Autorzy')
     abstract = models.TextField(verbose_name="Abstrakt", blank = True)
     session = models.ForeignKey('SessionType', default = 0, verbose_name = 'Sesja')
+    reviewer = models.ForeignKey(Account, editable = True, related_name= 'review_papers', null = True)
 
     def __unicode__(self):
         return '%s (Sesja %s)' % (self.title, str(self.session))

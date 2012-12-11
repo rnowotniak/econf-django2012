@@ -14,8 +14,9 @@
         <li><a href="/contact">Wiadomość do organizatorów</a></li>
     </ul>
 </div>
-<div class="my_papers">
 
+{% if papers %}
+<div class="my_papers">
     <ul class="menu_left_list">
 	<li style="background-color:#777777; color:white; font-weight:bold; ">MOJE REFERATY: <a class="add" href="/papers/">Dodaj nowy</a> </li>
 	
@@ -24,6 +25,21 @@
     {% endfor %}
     </ul>
 </div>
+{% endif %}
+
+{% if user.account.accounttype.id == 4 %}
+<div class="my_papers">
+    <ul class="menu_left_list">
+        <li style="background-color:#777777; color:white; font-weight:bold; ">ARTYKUŁY DO ZRECENZOWANIA:</li>
+
+        {% for paper in toreview %}
+            <li><a href="/review/{{ paper.id }}">{{ paper }}</a> </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
 <div class="if_admin">
 {% if user.is_staff %}
 

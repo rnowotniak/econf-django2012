@@ -9,22 +9,27 @@ from django.core.mail.message import EmailMessage
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import   DeleteView
+from django.views.generic.edit import   DeleteView, UpdateView
 import mimetypes
+import os
 import smtplib
 from confapp import forms
 from confapp.forms import AccountForm
-from confapp.models import Paper, Attachment
+from confapp.models import Paper, Attachment, Review
 from models import Account
 from django.template.response import TemplateResponse
 
 def main(req):
     if req.user.is_authenticated(): # logged in user
-        papers = Paper.objects.filter(account__id = req.user.account.id)
-        accounts = []
-        if req.user.is_staff:
-            accounts = Account.objects.all()
-        return TemplateResponse(req, "panel.html", {'papers':papers, 'accounts':accounts})
+        if req.user.account.accounttype.id != 4: # not reviewer
+            papers = Paper.objects.filter(account__id = req.user.account.id)
+            accounts = []
+            if req.user.is_staff:
+                accounts = Account.objects.all()
+            return TemplateResponse(req, "panel.html", {'papers':papers, 'accounts':accounts})
+        else: # reviewer
+            toreview = req.user.account.review_papers.all()
+            return TemplateResponse(req, "panel.html", {'toreview':toreview})
     return HttpResponseRedirect('/login')
 #    users = User.objects.all()
 #    return TemplateResponse(req, "base.html", {"users": users})
@@ -77,14 +82,41 @@ def contact(req):
 def get_attachment(req, id):
     try:
         attachment = Attachment.objects.get(id=id)
-        if attachment.paper.account.user.id != req.user.id:
-            # The logged user does not own the requested attachment
+        if attachment.paper.account.user.id != req.user.id and attachment.paper.reviewer_id != req.user.id:
+            # The logged user does not own the requested attachment, nor the logged user is the assigned reviewer
             raise Attachment.DoesNotExist
         file = attachment.file
         content = file.read()
     except Attachment.DoesNotExist:
         raise Http404('No such attachment')
-    return HttpResponse(content, mimetype = mimetypes.guess_type(str(file))[0])
+    res = HttpResponse(content, mimetype = mimetypes.guess_type(str(file))[0])
+    res['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(str(file))
+    return res
+
+@login_required
+@transaction.commit_on_success
+def review_paper(req, paper_id = None):
+    if paper_id is None:
+        return
+    try:
+        p = Paper.objects.get(id = paper_id)
+        form = forms.ReviewForm(instance = p.review)
+    except Paper.DoesNotExist:
+        raise Http404('No such paper')
+    except Review.DoesNotExist:
+        form = forms.ReviewForm()
+    if req.method == 'POST':
+        try:
+            form = forms.ReviewForm(req.POST, instance = p.review)
+        except Review.DoesNotExist:
+            form = forms.ReviewForm(req.POST)
+        if form.is_valid():
+            review = form.save(commit = False)
+            review.paper = p
+            review.save()
+            messages.success(req, u'Dziękujemy za recenzję')
+            return HttpResponseRedirect('/')
+    return TemplateResponse(req, "papers/review.html", {'form': form, 'paper':p, 'attachment': p.attachment_set.order_by('-created')[0] })
 
 @login_required
 @transaction.commit_on_success
@@ -141,6 +173,12 @@ class PaperDelete(DeleteView):
         result = super(PaperDelete, self).delete(req, *args, **kwargs)
         messages.success(req, 'Artykuł został usunięty.')
         return result
+
+class ReviewUpdate(UpdateView):
+    # TODO check if current user owns this article!
+    model = Review
+    template_name = 'review.html'
+    success_url = '/'
 
 #class PaperCreate(CreateView):
 #    model = Paper

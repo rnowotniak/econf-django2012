@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'django_extensions',
+    'south'
 )
 
 AUTH_PROFILE_MODULE = 'confapp.Account'

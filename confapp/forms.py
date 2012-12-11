@@ -8,13 +8,13 @@ from django import forms
 from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from django.forms import widgets
+from django.forms import widgets, Select
 from django.forms.models import ModelForm
 from django.http import HttpResponseRedirect
 from django.template import Context
 from django.template.response import TemplateResponse
 import smtplib
-from confapp.models import Account, Paper, Attachment, AccountType
+from confapp.models import Account, Paper, Attachment, AccountType, Review
 from django.conf import settings
 
 class AccountForm(ModelForm):
@@ -32,7 +32,7 @@ class AccountForm(ModelForm):
     password = forms.CharField(widget = widgets.PasswordInput(), label='Hasło')
     password2 = forms.CharField(widget = widgets.PasswordInput(), label='Powtórz hasło')
 
-    accounttype = forms.ModelChoiceField(queryset = AccountType.objects.filter(payment__gt=0).order_by('id'),
+    accounttype = forms.ModelChoiceField(queryset = AccountType.objects.all().order_by('id'),
         label='Uczestnictwo', initial=1)
 
     required_css_class = "required"
@@ -161,6 +161,31 @@ class AccountFormPreview(FormPreview):
 class ContactForm(forms.Form):
     message = forms.CharField(widget = widgets.Textarea(), label='Treść wiadomości')
     sendcopy = forms.BooleanField(initial = True, required = False)
+
+class ReviewForm(ModelForm):
+
+    original = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+#    original = models.IntegerField(choices = CHOICES1, default = 0)
+    significant = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+    clear = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+    correct = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+    citing = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+    figures = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES1)
+
+    adequacy = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES2)
+    novelty = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES2)
+
+    rating = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES3)
+    summary = forms.ChoiceField(widget=forms.Select, choices=(('','-- Wybierz --'),)+Review.CHOICES4)
+
+
+    class Meta:
+        model = Review
+        exclude = ('paper',)
+        widgets = {
+            #'original': Select(choices = ((-1, 'Wybierz'),))
+        }
+
 
 class PaperForm(ModelForm):
     class Meta:

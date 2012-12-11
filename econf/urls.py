@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.formtools.preview import FormPreview
 from confapp.forms import AccountFormPreview, AccountForm
-from confapp.views import PaperDelete
+from confapp.views import PaperDelete, ReviewUpdate
 
 admin.autodiscover()
 
@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     (r'^register$', user_passes_test(lambda u: not u.is_authenticated(), '/logout')(AccountFormPreview(AccountForm))),
     (r'^accounts/profile/$', 'confapp.views.update_account'),
     (r'^contact$', 'confapp.views.contact'),
+
+    (r'^review/(\d+$)', 'confapp.views.review_paper'),
 
     (r'^papers/delete/(?P<pk>\d+)$', PaperDelete.as_view()),
     (r'^papers/$', 'confapp.views.paper'),

@@ -36,10 +36,13 @@
 			{%  if user.is_anonymous %}
 				<!-- Posiadasz już konto? <a href="/login">Zaloguj się.</a><br/> -->
 			{%  else %}
-				Witaj {{ user.account }}
+				Witaj, {{ user.account }}
 				{% if user.is_staff %}
 					<b>(admin)</b>
+                {% elif user.account.accounttype.id == 4  %}
+                    <b>(recenzent)</b>
 				{% endif %}
+
 				<a href="/logout">wyloguj</a>
 			{%  endif %}
 		</div>

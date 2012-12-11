@@ -1,4 +1,4 @@
-from confapp.models import Conference, Account, AccountType, Paper, Attachment
+from confapp.models import Conference, Account, AccountType, Paper, Attachment, Review
 from django.contrib import admin
 
 class ConferenceAdmin(admin.ModelAdmin):
@@ -8,6 +8,7 @@ class ConferenceAdmin(admin.ModelAdmin):
 admin.site.register(Conference, ConferenceAdmin)
 admin.site.register(Account)
 admin.site.register(AccountType)
+admin.site.register(Review)
 
 class AttachmentInline(admin.StackedInline):
     model = Attachment
