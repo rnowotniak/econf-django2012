@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="my_account">
+    <h1>Forum Innowacji Młodych Badaczy</h1>
+    <h2>Recenzja artykułu</h2>
+
+        <h3>Artykuł: {{ paper }}</h3>
+
+        <h3>Pobierz artykuł: <a href="/attachments/{{ attachment.id }}">PLIK {{ attachment.created }}</a></h3>
+
+        <form action="" method="post">{% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="hidden" name="{{ stage_field }}" value="1" />
+            <input type="submit" value="Zatwierdź" class="button"/>
+        </form>
+
+    </div>
+
+{% endblock %}

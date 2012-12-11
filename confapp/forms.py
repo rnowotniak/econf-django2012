@@ -142,8 +142,8 @@ class AccountFormPreview(FormPreview):
             user.account = account
             c = Context({'user': user})
             body = t.render(c)
-            send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',
-                body, 'Komitet Organizacyjny <%s>' % settings.EMAIL_HOST_USER, [cleaned_data['email']])
+            #send_mail('Forum Innowacji Młodych Badaczy -- potwierdzenie rejestracji',
+                #body, 'Komitet Organizacyjny <%s>' % settings.EMAIL_HOST_USER, [cleaned_data['email']])
             try:
                 yamldata = serializers.serialize('yaml', [account.user, account])
                 send_mail(u'[FIMB] Rejestracja uczestnika: %s <%s>' % (unicode(account), account.user.email),
